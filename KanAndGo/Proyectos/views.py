@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from .models import Proyecto
 
-# Create your views here.
+######################### CRUD PROYECTOS #########################
+def proyectos(request):
+    proyectos = Proyecto.objects.filter(usuario_id=request.user)
+    return render(request, 'proyectos.html', {'proyectos': proyectos})
+

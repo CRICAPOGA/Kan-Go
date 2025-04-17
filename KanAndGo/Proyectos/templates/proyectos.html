@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Link del estilo-->
+    <link rel="stylesheet" href="{% static 'Proyects/css/estilo.css' %}">
+</head>
+
+<body>
+
+    <h1>Dashboard</h1>
+
+    <!--Botón crear proyecto-->
+    <button onclick="">+ Crear nuevo proyecto</button>
+
+    <hr>
+    <!--Proyectos-->
+    <div class="project-list">
+        {% for proyecto in proyectos %}
+        <div class="project-card">
+            <h3>{{ proyecto.nombre_proyecto }}</h3>
+            <p>{{ proyecto.descripcion|truncatewords:10 }}</p>
+            <p>
+                Estado:
+                <span class="{% if proyecto.estado %}estado-activo{% else %}estado-finalizado{% endif %}">
+                    {% if proyecto.estado %}Activo{% else %}Finalizado{% endif %}
+                </span>
+            </p>
+            <p>Creado: {{ proyecto.fecha_creacion|date:"j \d\e F \d\e Y \a \l\a\s H:i" }}</p>
+            <p>Finaliza: {{ proyecto.fecha_finalizacion|date:"j \d\e F \d\e Y" }}</p>
+            <!--Enlaces-->
+            <a href="#">✏️ Editar</a>
+            <a href="#">🗑️ Eliminar</a>
+            <a href="#">🗂️ Ir al tablero Kanban</a>
+
+        </div>
+        {% empty %}
+        <p>No tienes proyectos aún.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
