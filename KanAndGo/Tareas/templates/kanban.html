@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Tablero Kanban</title>
+    <!--Link del estilo-->
+    <link rel="stylesheet" href="{% static 'Tasks/css/estilo.css' %}">
+</head>
+
+<body data-url-actualizar="{% url 'tareas:actualizar_estado_tarea' %}">
+    <h1>Tablero Kanban: {{ proyecto.nombre_proyecto }}</h1>
+
+    <!--Columna "por hacer"-->
+    <div class="column" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
+        <h2>Pendiente</h2>
+        {% for tarea in tareas_por_hacer %}
+            <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}">
+                {{ tarea.titulo }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <!--Columna "en proceso"-->
+    <div class="column" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
+        <h2>En Proceso</h2>
+        {% for tarea in tareas_en_progreso %}
+            <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}">
+                {{ tarea.titulo }}
+            </div>
+        {% endfor %}
+    </div>
+    
+    <!--Columna "realizado"-->
+    <div class="column" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
+        <h2>Completado</h2>
+        {% for tarea in tareas_hechas %}
+            <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}">
+                {{ tarea.titulo }}
+            </div>
+        {% endfor %}
+    </div>
+    <!--Link del js-->
+    <script src="{% static 'Tasks/js/arrastrar_tareas.js' %}"></script>
+</body>
+</html>

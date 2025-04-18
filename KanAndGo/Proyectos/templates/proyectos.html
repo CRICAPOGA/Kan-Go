@@ -37,7 +37,7 @@
             <a href="javascript:void(0);"
                 onclick="openDeleteModal('{{ proyecto.proyecto_id }}', '{{ proyecto.nombre_proyecto }}')">🗑️
                 Eliminar</a>
-            <a href="#">🗂️ Ir al tablero Kanban</a>
+                <a href="{% url 'tareas:kanban' proyecto.proyecto_id %}">🗂️ Ir al tablero Kanban</a>
 
         </div>
         {% empty %}

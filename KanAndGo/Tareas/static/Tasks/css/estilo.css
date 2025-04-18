@@ -1,0 +1,17 @@
+.column {
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #aaa;
+    min-height: 300px;
+    background-color: #f9f9f9;
+}
+
+.task {
+    margin: 10px;
+    padding: 10px;
+    background-color: #e0e0e0;
+    cursor: move;
+}
