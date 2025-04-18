@@ -61,11 +61,11 @@ function obtenerPrioridad(tarea) {
 }
 
 // Modal de crear tarea
-function openCreateModal() {
+function abrirModalCrear() {
     document.getElementById('modalCrear').style.display = 'block';
 }
 
-function closeCreateModal() {
+function cerrarModalCrear() {
     document.getElementById('modalCrear').style.display = 'none';
 }
 // Cerrar modal si se da clic en el fondo oscuro
@@ -83,3 +83,17 @@ document.addEventListener('DOMContentLoaded', function () {
         fechaInput.min = today;
     }
 });
+// Modal de ver detalles tarea
+function mostrarDetalleTarea(element) {
+    document.getElementById('detalleTitulo').textContent = element.dataset.titulo;
+    document.getElementById('detalleDescripcion').textContent = element.dataset.descripcion;
+    document.getElementById('detalleFecha').textContent = element.dataset.fecha;
+    document.getElementById('detalleUrgente').textContent = element.dataset.urgente;
+    document.getElementById('detalleImportante').textContent = element.dataset.importante;
+
+    document.getElementById('modalDetalle').style.display = 'block';
+}
+
+function cerrarDetalleModal() {
+    document.getElementById('modalDetalle').style.display = 'none';
+}
