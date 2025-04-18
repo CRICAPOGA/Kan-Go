@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token }}">
@@ -12,18 +13,18 @@
 <body data-url-actualizar="{% url 'tareas:actualizar_estado_tarea' %}">
     <h1>Tablero Kanban: {{ proyecto.nombre_proyecto }}</h1>
 
+    <!--Botón crear tarea-->
+    <button onclick="openCreateModal()">+ Crear nueva tarea</button>
+
     <!--Columna "por hacer"-->
     <div class="column" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
         <h2>Pendiente</h2>
         {% for tarea in tareas_por_hacer %}
-            <div class="task" 
-                 draggable="true" 
-                 ondragstart="drag(event)" 
-                 id="tarea-{{ tarea.tarea_id }}"
-                 data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-                 data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-                {{ tarea.titulo }}
-            </div>
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+            {{ tarea.titulo }}
+        </div>
         {% endfor %}
     </div>
 
@@ -31,14 +32,11 @@
     <div class="column" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
         <h2>En Proceso</h2>
         {% for tarea in tareas_en_progreso %}
-            <div class="task" 
-                 draggable="true" 
-                 ondragstart="drag(event)" 
-                 id="tarea-{{ tarea.tarea_id }}"
-                 data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-                 data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-                {{ tarea.titulo }}
-            </div>
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+            {{ tarea.titulo }}
+        </div>
         {% endfor %}
     </div>
 
@@ -46,17 +44,44 @@
     <div class="column" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
         <h2>Completado</h2>
         {% for tarea in tareas_hechas %}
-            <div class="task" 
-                 draggable="true" 
-                 ondragstart="drag(event)" 
-                 id="tarea-{{ tarea.tarea_id }}"
-                 data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-                 data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-                {{ tarea.titulo }}
-            </div>
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+            {{ tarea.titulo }}
+        </div>
         {% endfor %}
+    </div>
+
+    <!-- Modal de Crear Tarea -->
+    <div id="modalCrear" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCreateModal()">&times;</span>
+            <h2>Crear nuevo proyecto</h2>
+            <form id="formCrear" method="POST" action="{% url 'tareas:crear_tarea' proyecto.proyecto_id %}">
+                {% csrf_token %}
+                <input type="hidden" name="proyecto_id" value="{{ proyecto.id }}">
+                
+                <label for="id_titulo">Título:</label>
+                <input type="text" name="titulo" id="id_titulo" required>
+            
+                <label for="id_descripcion">Descripción:</label>
+                <textarea name="descripcion" id="id_descripcion" rows="4" required></textarea>
+            
+                <label for="id_fecha_vencimiento">Fecha de vencimiento:</label>
+                <input type="date" name="fecha_vencimiento" id="id_fecha_vencimiento" required>
+            
+                <label for="id_es_urgente">¿Es urgente?</label>
+                <input type="checkbox" name="es_urgente" id="id_es_urgente">
+            
+                <label for="id_es_importante">¿Es importante?</label>
+                <input type="checkbox" name="es_importante" id="id_es_importante">
+            
+                <button type="submit">Crear</button>
+            </form>            
+        </div>
     </div>
     <!--Link del js-->
     <script src="{% static 'Tasks/js/arrastrar_tareas.js' %}"></script>
 </body>
+
 </html>

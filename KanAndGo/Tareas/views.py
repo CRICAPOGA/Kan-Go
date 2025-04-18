@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from Proyectos.models import Proyecto
 from .models import Tarea
 from django.http import JsonResponse
 import json
 from django.db import models
+from .forms import TareaForm
 
 def tablero_kanban(request, proyecto_id):
     # Obtener proyecto y tareas asociadas
@@ -44,3 +45,17 @@ def actualizar_estado_tarea(request):
         tarea.save()
         return JsonResponse({"success": True})
     return JsonResponse({"error": "Método no permitido"}, status=405)
+
+def crear_tarea(request, proyecto_id):
+    proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
+    if request.method == 'POST':
+        form = TareaForm(request.POST)
+        if form.is_valid():
+            nueva_tarea = form.save(commit=False)
+            nueva_tarea.proyecto_id = proyecto  # Asociar la tarea al proyecto
+            nueva_tarea.save()
+            return redirect('tareas:kanban', proyecto_id=proyecto_id)
+        else:
+            form = TareaForm()
+    return render(request, 'kanban.html', {'form': form})
+

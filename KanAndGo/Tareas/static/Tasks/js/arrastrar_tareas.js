@@ -59,3 +59,27 @@ function obtenerPrioridad(tarea) {
     if (esImportante) return 2;
     return 3;
 }
+
+// Modal de crear tarea
+function openCreateModal() {
+    document.getElementById('modalCrear').style.display = 'block';
+}
+
+function closeCreateModal() {
+    document.getElementById('modalCrear').style.display = 'none';
+}
+// Cerrar modal si se da clic en el fondo oscuro
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = "none";
+    }
+}
+
+// Restricción en la fecha (no anterior a hoy)
+document.addEventListener('DOMContentLoaded', function () {
+    const fechaInput = document.getElementById('id_fecha_vencimiento');
+    if (fechaInput) {
+        const today = new Date().toISOString().split('T')[0];
+        fechaInput.min = today;
+    }
+});

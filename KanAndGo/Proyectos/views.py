@@ -18,7 +18,7 @@ def crear_proyecto(request):
             return redirect('proyectos:proyectos')
     else:
         form = ProyectoForm()
-    return render(request, 'crear_proyecto.html', {'form': form})
+    return render(request, 'proyectos.html', {'form': form})
 
 def editar_proyecto(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id, usuario_id=request.user)
