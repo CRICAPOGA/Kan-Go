@@ -65,3 +65,15 @@ def eliminar_tarea(request, tarea_id):
         tarea.delete()
         return redirect('tareas:kanban', proyecto_id=tarea.proyecto_id.proyecto_id)
     return redirect('tareas:kanban', proyecto_id=tarea.proyecto_id.proyecto_id)
+
+def editar_tarea(request, tarea_id):
+    tarea = get_object_or_404(Tarea, pk=tarea_id)
+    if request.method == 'POST':
+        form = TareaForm(request.POST, instance=tarea)
+        if form.is_valid():
+            form.save()
+            return redirect('tareas:kanban', proyecto_id=tarea.proyecto_id.proyecto_id)
+    else:
+        form = TareaForm(instance=tarea)
+    
+    return render(request, 'editar_tarea.html', {'form': form, 'tarea': tarea})

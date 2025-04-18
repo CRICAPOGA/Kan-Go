@@ -43,6 +43,16 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
+            <span class="edit-icon"
+                onclick="abrirModalEditar(this)"
+                data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}"
+                data-descripcion="{{ tarea.descripcion }}"
+                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+              ✏️
+            </span>
             <span class="delete-icon"
                 onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
         </div>
@@ -118,7 +128,25 @@
             </form>
         </div>
     </div>
-
+    <!-- Modal de Editar -->
+    <div id="modalEditar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalEditar()">&times;</span>
+            <h2>Editar tarea</h2>
+            <form id="formEditar" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="edit_tarea_id" name="tarea_id">
+                <label>Título: <input type="text" id="edit_titulo" name="titulo"></label>
+                <label>Descripción: <textarea id="edit_descripcion" name="descripcion"></textarea></label>
+                <label>Fecha de vencimiento: <input type="date" id="edit_fecha_vencimiento" name="fecha_vencimiento"></label>
+                <label><input type="checkbox" id="edit_es_urgente" name="es_urgente"> Urgente</label>
+                <label><input type="checkbox" id="edit_es_importante" name="es_importante"> Importante</label>
+                <button type="submit">Guardar cambios</button>
+                <button type="button" onclick="cerrarModalEditar()">Cancelar</button>
+            </form>
+        </div>
+    </div>    
+  
     <!--Link del js-->
     <script src="{% static 'Tasks/js/tareas.js' %}"></script>
 </body>

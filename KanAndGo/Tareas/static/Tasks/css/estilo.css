@@ -30,6 +30,12 @@
     cursor: pointer;
 }
 
+.edit-icon {
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}
+
 /* Estilos del Modal */
 .modal {
     display: none; /* Por defecto, el modal está oculto */

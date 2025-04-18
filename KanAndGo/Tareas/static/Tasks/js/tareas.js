@@ -86,12 +86,14 @@ document.addEventListener('DOMContentLoaded', function () {
 // Modal de ver detalles tarea
 function mostrarDetalleTarea(element) {
     const tarea = element.closest('.task');
+    const urgente = tarea.dataset.urgente === 'true' ? 'Sí' : 'No';
+    const importante = tarea.dataset.importante === 'true' ? 'Sí' : 'No';
 
     document.getElementById('detalleTitulo').textContent = tarea.dataset.titulo;
     document.getElementById('detalleDescripcion').textContent = tarea.dataset.descripcion;
     document.getElementById('detalleFecha').textContent = tarea.dataset.fecha;
-    document.getElementById('detalleUrgente').textContent = tarea.dataset.urgente;
-    document.getElementById('detalleImportante').textContent = tarea.dataset.importante;
+    document.getElementById('detalleUrgente').textContent = urgente;
+    document.getElementById('detalleImportante').textContent = importante
 
     document.getElementById('modalDetalle').style.display = 'block';
 }
@@ -111,4 +113,35 @@ function abrirModalEliminar(tareaId, nombreTarea) {
 function cerrarModalEliminar() {
     // Ocultar modal cuando el usuario le de en cerrar
     document.getElementById('modalEliminar').style.display = "none";
+}
+
+function abrirModalEditar(elemento) {
+    const modal = document.getElementById("modalEditar");
+
+    // Obtener los datos desde el botón
+    const tareaId = elemento.getAttribute("data-id");
+    const titulo = elemento.getAttribute("data-titulo");
+    const descripcion = elemento.getAttribute("data-descripcion");
+    const fecha = elemento.getAttribute("data-fecha");
+    const urgente = elemento.getAttribute("data-urgente") === "true";
+    const importante = elemento.getAttribute("data-importante") === "true";
+
+    // Llenar los campos del modal
+    document.getElementById("edit_tarea_id").value = tareaId;
+    document.getElementById("edit_titulo").value = titulo;
+    document.getElementById("edit_descripcion").value = descripcion;
+    document.getElementById("edit_fecha_vencimiento").value = fecha;
+    document.getElementById("edit_es_urgente").checked = urgente;
+    document.getElementById("edit_es_importante").checked = importante;
+
+    // Actualiza el action del formulario
+    const formEditar = document.getElementById("formEditar");
+    formEditar.action = `/tareas/editar/${tareaId}/`;
+
+    // Mostrar modal
+    modal.style.display = "block";
+}
+
+function cerrarModalEditar() {
+    document.getElementById("modalEditar").style.display = "none";
 }
