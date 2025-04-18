@@ -36,3 +36,12 @@ def editar_proyecto(request, proyecto_id):
         return render(request, 'editar_proyecto.html', {'form': form, 'proyecto': proyecto})
 
     return render(request, 'editar_proyecto.html', {'form': form, 'proyecto': proyecto})
+
+def eliminar_proyecto(request, proyecto_id):
+    proyecto = get_object_or_404(Proyecto, pk=proyecto_id, usuario_id=request.user)
+
+    if request.method == 'POST':
+        proyecto.delete()
+        return redirect('proyectos:proyectos')
+
+    return redirect('proyectos:proyectos')

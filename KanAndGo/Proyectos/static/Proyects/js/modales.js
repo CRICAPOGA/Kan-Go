@@ -80,3 +80,16 @@ function closeModal() {
     // Ocultar modal cuando el usuario le de en cerrar
     document.getElementById('modalEditar').style.display = "none";
 }
+
+// Modal de eliminación
+function openDeleteModal(proyectoId, nombreProyecto) {
+    const form = document.getElementById('formEliminar');
+    form.action = `/proyectos/eliminar/${proyectoId}/`; 
+    document.getElementById('nombreProyectoEliminar').textContent = `"${nombreProyecto}"`;
+    document.getElementById('modalEliminar').style.display = "block";
+}
+
+function closeDeleteModal() {
+    // Ocultar modal cuando el usuario le de en cerrar
+    document.getElementById('modalEliminar').style.display = "none";
+}
