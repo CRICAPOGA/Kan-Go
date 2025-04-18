@@ -1,9 +1,9 @@
 // Modal de crear proyecto
-function openCreateModal() {
+function abrirModalCrear() {
     document.getElementById('modalCrear').style.display = 'block';
 }
 
-function closeCreateModal() {
+function cerrarModalCrear() {
     document.getElementById('modalCrear').style.display = 'none';
 }
 // Cerrar modal si se da clic en el fondo oscuro
@@ -56,7 +56,7 @@ document.addEventListener('submit', function (event) {
 });
 
 // Modal de editar y cargar contenido
-function openModal(proyectoId) {
+function abrirModalEditar(proyectoId) {
     // Realizar solicitud AJAX para obtener el formulario de edición
     fetch(`/proyectos/editar/${proyectoId}/`, {
         method: 'GET', // Método GET para obtener el contenido
@@ -76,20 +76,20 @@ function openModal(proyectoId) {
         });
 }
 
-function closeModal() {
+function cerrarModalEditar() {
     // Ocultar modal cuando el usuario le de en cerrar
     document.getElementById('modalEditar').style.display = "none";
 }
 
 // Modal de eliminación
-function openDeleteModal(proyectoId, nombreProyecto) {
+function abrirModalEliminar(proyectoId, nombreProyecto) {
     const form = document.getElementById('formEliminar');
     form.action = `/proyectos/eliminar/${proyectoId}/`; 
     document.getElementById('nombreProyectoEliminar').textContent = `"${nombreProyecto}"`;
     document.getElementById('modalEliminar').style.display = "block";
 }
 
-function closeDeleteModal() {
+function cerrarModalEliminar() {
     // Ocultar modal cuando el usuario le de en cerrar
     document.getElementById('modalEliminar').style.display = "none";
 }

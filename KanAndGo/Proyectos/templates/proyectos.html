@@ -15,7 +15,7 @@
     <h1>Dashboard</h1>
 
     <!--Botón crear proyecto-->
-    <button onclick="openCreateModal()">+ Crear nuevo proyecto</button>
+    <button onclick="abrirModalCrear()">+ Crear nuevo proyecto</button>
 
     <hr>
     <!--Proyectos-->
@@ -33,9 +33,9 @@
             <p>Creado: {{ proyecto.fecha_creacion|date:"j \d\e F \d\e Y \a \l\a\s H:i" }}</p>
             <p>Finaliza: {{ proyecto.fecha_finalizacion|date:"j \d\e F \d\e Y" }}</p>
             <!--Enlaces-->
-            <a href="javascript:void(0);" onclick="openModal('{{ proyecto.proyecto_id }}')">✏️ Editar</a>
+            <a href="javascript:void(0);" onclick="abrirModalEditar('{{ proyecto.proyecto_id }}')">✏️ Editar</a>
             <a href="javascript:void(0);"
-                onclick="openDeleteModal('{{ proyecto.proyecto_id }}', '{{ proyecto.nombre_proyecto }}')">🗑️
+                onclick="abrirModalEliminar('{{ proyecto.proyecto_id }}', '{{ proyecto.nombre_proyecto }}')">🗑️
                 Eliminar</a>
                 <a href="{% url 'tareas:kanban' proyecto.proyecto_id %}">🗂️ Ir al tablero Kanban</a>
 
@@ -48,7 +48,7 @@
     <!-- Modal de Crear Proyecto -->
     <div id="modalCrear" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeCreateModal()">&times;</span>
+            <span class="close" onclick="cerrarModalCrear()">&times;</span>
             <h2>Crear nuevo proyecto</h2>
             <form id="formCrear" method="POST" action="{% url 'proyectos:crear_proyecto' %}">
                 {% csrf_token %}
@@ -68,7 +68,7 @@
     <!-- Modal de Editar -->
     <div id="modalEditar" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="cerrarModalEditar()">&times;</span>
             <div id="contenedorForm">
                 <!-- Aquí va el contenido del formulario cargado con AJAX -->
             </div>
@@ -77,13 +77,13 @@
     <!-- Modal de Confirmar Eliminación -->
     <div id="modalEliminar" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeDeleteModal()">&times;</span>
+            <span class="close" onclick="cerrarModalEliminar()">&times;</span>
             <h2>¿Estás seguro de que deseas eliminar el proyecto?</h2>
             <p id="nombreProyectoEliminar"></p>
             <form id="formEliminar" method="POST">
                 {% csrf_token %}
                 <button type="submit">Sí, eliminar</button>
-                <button type="button" onclick="closeDeleteModal()">Cancelar</button>
+                <button type="button" onclick="cerrarModalEliminar()">Cancelar</button>
             </form>
         </div>
     </div>
