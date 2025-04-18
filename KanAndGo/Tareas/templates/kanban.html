@@ -27,6 +27,16 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
+            <span class="edit-icon"
+                onclick="abrirModalEditar(this)"
+                data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}"
+                data-descripcion="{{ tarea.descripcion }}"
+                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+              ✏️
+            </span>
             <span class="delete-icon"
                 onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
         </div>
@@ -70,6 +80,16 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
+            <span class="edit-icon"
+                onclick="abrirModalEditar(this)"
+                data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}"
+                data-descripcion="{{ tarea.descripcion }}"
+                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+              ✏️
+            </span>
             <span class="delete-icon"
                 onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
         </div>
