@@ -33,7 +33,7 @@
             <p>Creado: {{ proyecto.fecha_creacion|date:"j \d\e F \d\e Y \a \l\a\s H:i" }}</p>
             <p>Finaliza: {{ proyecto.fecha_finalizacion|date:"j \d\e F \d\e Y" }}</p>
             <!--Enlaces-->
-            <a href="#">✏️ Editar</a>
+            <a href="javascript:void(0);" onclick="openModal('{{ proyecto.proyecto_id }}')">✏️ Editar</a>
             <a href="#">🗑️ Eliminar</a>
             <a href="#">🗂️ Ir al tablero Kanban</a>
 
@@ -63,6 +63,16 @@
             </form>
         </div>
     </div>
+        <!-- Modal de Editar -->
+        <div id="modalEditar" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="contenedorForm">
+                    <!-- Aquí va el contenido del formulario cargado con AJAX -->
+                </div>
+            </div>
+        </div>
+    
     <!--Link del js-->
     <script src="{% static 'Proyects/js/modales.js' %}"></script>    
 </body>

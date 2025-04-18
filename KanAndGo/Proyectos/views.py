@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Proyecto
 from .forms import ProyectoForm
 
@@ -19,3 +19,20 @@ def crear_proyecto(request):
     else:
         form = ProyectoForm()
     return render(request, 'crear_proyecto.html', {'form': form})
+
+def editar_proyecto(request, proyecto_id):
+    proyecto = get_object_or_404(Proyecto, pk=proyecto_id, usuario_id=request.user)
+    # Si la solicitud es POST guardar cambios
+    if request.method == 'POST':
+        form = ProyectoForm(request.POST, instance=proyecto)
+        if form.is_valid():
+            form.save()
+            return redirect('proyectos:proyectos')
+    else:
+        # Crear form cargando los datos actuales desde la BD
+        form = ProyectoForm(instance=proyecto)
+    # Verificar por XMLHttpRequest si la solicitud es AJAX
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'editar_proyecto.html', {'form': form, 'proyecto': proyecto})
+
+    return render(request, 'editar_proyecto.html', {'form': form, 'proyecto': proyecto})
