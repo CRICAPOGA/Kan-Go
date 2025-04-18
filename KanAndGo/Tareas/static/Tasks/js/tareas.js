@@ -85,11 +85,13 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 // Modal de ver detalles tarea
 function mostrarDetalleTarea(element) {
-    document.getElementById('detalleTitulo').textContent = element.dataset.titulo;
-    document.getElementById('detalleDescripcion').textContent = element.dataset.descripcion;
-    document.getElementById('detalleFecha').textContent = element.dataset.fecha;
-    document.getElementById('detalleUrgente').textContent = element.dataset.urgente;
-    document.getElementById('detalleImportante').textContent = element.dataset.importante;
+    const tarea = element.closest('.task');
+
+    document.getElementById('detalleTitulo').textContent = tarea.dataset.titulo;
+    document.getElementById('detalleDescripcion').textContent = tarea.dataset.descripcion;
+    document.getElementById('detalleFecha').textContent = tarea.dataset.fecha;
+    document.getElementById('detalleUrgente').textContent = tarea.dataset.urgente;
+    document.getElementById('detalleImportante').textContent = tarea.dataset.importante;
 
     document.getElementById('modalDetalle').style.display = 'block';
 }
