@@ -15,7 +15,7 @@
     <h1>Dashboard</h1>
 
     <!--Botón crear proyecto-->
-    <button onclick="">+ Crear nuevo proyecto</button>
+    <button onclick="openCreateModal()">+ Crear nuevo proyecto</button>
 
     <hr>
     <!--Proyectos-->
@@ -42,5 +42,28 @@
         <p>No tienes proyectos aún.</p>
         {% endfor %}
     </div>
+
+    <!-- Modal de Crear Proyecto -->
+    <div id="modalCrear" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCreateModal()">&times;</span>
+            <h2>Crear nuevo proyecto</h2>
+            <form id="formCrear" method="POST" action="{% url 'proyectos:crear_proyecto' %}">
+                {% csrf_token %}
+                <label for="id_nombre_proyecto">Nombre:</label>
+                <input type="text" name="nombre_proyecto" id="id_nombre_proyecto" required>
+
+                <label for="id_descripcion">Descripción:</label>
+                <textarea name="descripcion" id="id_descripcion" rows="4" required></textarea>
+
+                <label for="id_fecha_finalizacion">Fecha de finalización:</label>
+                <input type="date" name="fecha_finalizacion" id="id_fecha_finalizacion" required>
+
+                <button type="submit">Crear</button>
+            </form>
+        </div>
+    </div>
+    <!--Link del js-->
+    <script src="{% static 'Proyects/js/modales.js' %}"></script>    
 </body>
 </html>
