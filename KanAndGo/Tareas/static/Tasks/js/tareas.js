@@ -97,3 +97,16 @@ function mostrarDetalleTarea(element) {
 function cerrarDetalleModal() {
     document.getElementById('modalDetalle').style.display = 'none';
 }
+
+// Modal de eliminación
+function abrirModalEliminar(tareaId, nombreTarea) {
+    const form = document.getElementById('formEliminar');
+    form.action = `/tareas/eliminar/${tareaId}/`; 
+    document.getElementById('nombreTareaEliminar').textContent = `"${nombreTarea}"`;
+    document.getElementById('modalEliminar').style.display = "block";
+}
+
+function cerrarModalEliminar() {
+    // Ocultar modal cuando el usuario le de en cerrar
+    document.getElementById('modalEliminar').style.display = "none";
+}

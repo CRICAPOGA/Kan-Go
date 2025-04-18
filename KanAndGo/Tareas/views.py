@@ -59,3 +59,9 @@ def crear_tarea(request, proyecto_id):
             form = TareaForm()
     return render(request, 'kanban.html', {'form': form})
 
+def eliminar_tarea(request, tarea_id):
+    tarea = get_object_or_404(Tarea, pk=tarea_id)
+    if request.method == 'POST':
+        tarea.delete()
+        return redirect('tareas:kanban', proyecto_id=tarea.proyecto_id.proyecto_id)
+    return redirect('tareas:kanban', proyecto_id=tarea.proyecto_id.proyecto_id)

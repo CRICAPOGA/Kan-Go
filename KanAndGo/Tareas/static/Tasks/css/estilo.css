@@ -13,6 +13,20 @@
     margin: 10px;
     padding: 10px;
     background-color: #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: default; /* previene que todo el bloque parezca clickeable */
+}
+
+.task-content {
+    flex-grow: 1;
+    cursor: pointer; /* ahora solo el contenido de la tarea parece clickeable */
+}
+
+.delete-icon {
+    font-size: 20px;
+    color: red;
     cursor: pointer;
 }
 

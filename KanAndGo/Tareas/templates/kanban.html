@@ -20,26 +20,31 @@
     <div class="column" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
         <h2>Pendiente</h2>
         {% for tarea in tareas_por_hacer %}
-        <div class="task" draggable="true" ondragstart="drag(event)" onclick="mostrarDetalleTarea(this)"
-            id="tarea-{{ tarea.tarea_id }}" data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}"
-            data-descripcion="{{ tarea.descripcion }}" data-fecha="{{ tarea.fecha_vencimiento }}"
-            data-urgente="{{ tarea.es_urgente|yesno:'Sí,No' }}"
-            data-importante="{{ tarea.es_importante|yesno:'Sí,No' }}">
-            {{ tarea.titulo }}
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+            data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+            <div class="task-content" onclick="mostrarDetalleTarea(this)">
+                {{ tarea.titulo }}
+            </div>
+            <span class="delete-icon"
+                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
         </div>
         {% endfor %}
     </div>
-
     <!--Columna "en proceso"-->
     <div class="column" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
         <h2>En Proceso</h2>
         {% for tarea in tareas_en_progreso %}
-        <div class="task" draggable="true" ondragstart="drag(event)" onclick="mostrarDetalleTarea(this)"
-        id="tarea-{{ tarea.tarea_id }}" data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}"
-        data-descripcion="{{ tarea.descripcion }}" data-fecha="{{ tarea.fecha_vencimiento }}"
-            data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+            data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
             data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-            {{ tarea.titulo }}
+            <div class="task-content" onclick="mostrarDetalleTarea(this)">
+                {{ tarea.titulo }}
+            </div>
+            <span class="delete-icon"
+                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
         </div>
         {% endfor %}
     </div>
@@ -48,12 +53,15 @@
     <div class="column" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
         <h2>Completado</h2>
         {% for tarea in tareas_hechas %}
-        <div class="task" draggable="true" ondragstart="drag(event)" onclick="mostrarDetalleTarea(this)"
-        id="tarea-{{ tarea.tarea_id }}" data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}"
-        data-descripcion="{{ tarea.descripcion }}" data-fecha="{{ tarea.fecha_vencimiento }}"
-            data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+            data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
             data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-            {{ tarea.titulo }}
+            <div class="task-content" onclick="mostrarDetalleTarea(this)">
+                {{ tarea.titulo }}
+            </div>
+            <span class="delete-icon"
+                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
         </div>
         {% endfor %}
     </div>
@@ -95,6 +103,19 @@
             <p><strong>Fecha de vencimiento:</strong> <span id="detalleFecha"></span></p>
             <p><strong>Urgente:</strong> <span id="detalleUrgente"></span></p>
             <p><strong>Importante:</strong> <span id="detalleImportante"></span></p>
+        </div>
+    </div>
+    <!-- Modal de Confirmar Eliminación -->
+    <div id="modalEliminar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalEliminar()">&times;</span>
+            <h2>¿Estás seguro de que deseas eliminar el proyecto?</h2>
+            <p id="nombreTareaEliminar"></p>
+            <form id="formEliminar" method="POST">
+                {% csrf_token %}
+                <button type="submit">Sí, eliminar</button>
+                <button type="button" onclick="cerrarModalEliminar()">Cancelar</button>
+            </form>
         </div>
     </div>
 
