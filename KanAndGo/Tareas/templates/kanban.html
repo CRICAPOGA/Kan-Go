@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Tablero Kanban</title>
+    <!--Link del estilo-->
+    <link rel="stylesheet" href="{% static 'Tasks/css/estilo.css' %}">
+</head>
+
+<body data-url-actualizar="{% url 'tareas:actualizar_estado_tarea' %}">
+    <h1>Tablero Kanban: {{ proyecto.nombre_proyecto }}</h1>
+
+    <!--Botón crear tarea-->
+    <button onclick="abrirModalCrear()">+ Crear nueva tarea</button>
+
+    <!--Columna "por hacer"-->
+    <div class="column" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
+        <h2>Pendiente</h2>
+        {% for tarea in tareas_por_hacer %}
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+            data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+            <div class="task-content" onclick="mostrarDetalleTarea(this)">
+                {{ tarea.titulo }}
+            </div>
+            <span class="edit-icon"
+                onclick="abrirModalEditar(this)"
+                data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}"
+                data-descripcion="{{ tarea.descripcion }}"
+                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+              ✏️
+            </span>
+            <span class="delete-icon"
+                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+        </div>
+        {% endfor %}
+    </div>
+    <!--Columna "en proceso"-->
+    <div class="column" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
+        <h2>En Proceso</h2>
+        {% for tarea in tareas_en_progreso %}
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+            data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+            <div class="task-content" onclick="mostrarDetalleTarea(this)">
+                {{ tarea.titulo }}
+            </div>
+            <span class="edit-icon"
+                onclick="abrirModalEditar(this)"
+                data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}"
+                data-descripcion="{{ tarea.descripcion }}"
+                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+              ✏️
+            </span>
+            <span class="delete-icon"
+                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!--Columna "realizado"-->
+    <div class="column" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
+        <h2>Completado</h2>
+        {% for tarea in tareas_hechas %}
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+            data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+            <div class="task-content" onclick="mostrarDetalleTarea(this)">
+                {{ tarea.titulo }}
+            </div>
+            <span class="edit-icon"
+                onclick="abrirModalEditar(this)"
+                data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}"
+                data-descripcion="{{ tarea.descripcion }}"
+                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+              ✏️
+            </span>
+            <span class="delete-icon"
+                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Modal de Crear Tarea -->
+    <div id="modalCrear" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalCrear()">&times;</span>
+            <h2>Crear nuevo proyecto</h2>
+            <form id="formCrear" method="POST" action="{% url 'tareas:crear_tarea' proyecto.proyecto_id %}">
+                {% csrf_token %}
+                <input type="hidden" name="proyecto_id" value="{{ proyecto.id }}">
+
+                <label for="id_titulo">Título:</label>
+                <input type="text" name="titulo" id="id_titulo" required>
+
+                <label for="id_descripcion">Descripción:</label>
+                <textarea name="descripcion" id="id_descripcion" rows="4" required></textarea>
+
+                <label for="id_fecha_vencimiento">Fecha de vencimiento:</label>
+                <input type="date" name="fecha_vencimiento" id="id_fecha_vencimiento" required>
+
+                <label for="id_es_urgente">¿Es urgente?</label>
+                <input type="checkbox" name="es_urgente" id="id_es_urgente">
+
+                <label for="id_es_importante">¿Es importante?</label>
+                <input type="checkbox" name="es_importante" id="id_es_importante">
+
+                <button type="submit">Crear</button>
+            </form>
+        </div>
+    </div>
+    <!-- Modal Detalles de Tarea -->
+    <div id="modalDetalle" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarDetalleModal()">&times;</span>
+            <h2 id="detalleTitulo"></h2>
+            <p><strong>Descripción:</strong> <span id="detalleDescripcion"></span></p>
+            <p><strong>Fecha de vencimiento:</strong> <span id="detalleFecha"></span></p>
+            <p><strong>Urgente:</strong> <span id="detalleUrgente"></span></p>
+            <p><strong>Importante:</strong> <span id="detalleImportante"></span></p>
+        </div>
+    </div>
+    <!-- Modal de Confirmar Eliminación -->
+    <div id="modalEliminar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalEliminar()">&times;</span>
+            <h2>¿Estás seguro de que deseas eliminar esta tarea?</h2>
+            <p id="nombreTareaEliminar"></p>
+            <form id="formEliminar" method="POST">
+                {% csrf_token %}
+                <button type="submit">Sí, eliminar</button>
+                <button type="button" onclick="cerrarModalEliminar()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+    <!-- Modal de Editar -->
+    <div id="modalEditar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalEditar()">&times;</span>
+            <h2>Editar tarea</h2>
+            <form id="formEditar" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="edit_tarea_id" name="tarea_id">
+                <label>Título: <input type="text" id="edit_titulo" name="titulo"></label>
+                <label>Descripción: <textarea id="edit_descripcion" name="descripcion"></textarea></label>
+                <label>Fecha de vencimiento: <input type="date" id="edit_fecha_vencimiento" name="fecha_vencimiento"></label>
+                <label><input type="checkbox" id="edit_es_urgente" name="es_urgente"> Urgente</label>
+                <label><input type="checkbox" id="edit_es_importante" name="es_importante"> Importante</label>
+                <button type="submit">Guardar cambios</button>
+                <button type="button" onclick="cerrarModalEditar()">Cancelar</button>
+            </form>
+        </div>
+    </div>    
+  
+    <!--Link del js-->
+    <script src="{% static 'Tasks/js/tareas.js' %}"></script>
+</body>
+
+</html>

@@ -55,3 +55,6 @@ def register_view(request):
         return redirect('login')
     
     return render(request, 'register.html', {'roles': roles})
+
+def acceso(request):
+    return render(request, 'acceso.html')
