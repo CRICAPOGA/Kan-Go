@@ -35,3 +35,15 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.delete-icon {
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}
+
+.edit-icon {
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}

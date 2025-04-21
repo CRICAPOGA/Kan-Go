@@ -39,10 +39,14 @@
                         <td class="align-middle">{{ usuario.rol_id.rol }}</td>
                         <td class="text-center align-middle">
                             <div class="d-flex flex-wrap justify-content-center gap-2">
-                                <a href="#" class="btn btn-sm shadow-sm">Editar</a>
+                                <span class="edit-icon" onclick="abrirModalEditar(this)"
+                                    data-id="{{ usuario.usuario_id }}" data-nombre="{{ usuario.nombre }}"
+                                    data-apellido="{{ usuario.apellido }}" data-nombre_usuario="{{ usuario.username }}"
+                                    data-correo="{{ usuario.correo }}" data-rol_id="{{ usuario.rol_id.rol_id }}">
+                                    ✏️
+                                </span>
                                 <a href="javascript:void(0);"
                                     onclick="abrirModalEliminar('{{ usuario.usuario_id }}', '{{ usuario.nombre }}', '{{ usuario.apellido }}')">🗑️
-                                    Eliminar
                                 </a>
                             </div>
                         </td>
@@ -82,6 +86,29 @@
                 </form>
             </div>
         </div>
+        <!-- Modal de Editar -->
+        <div id="modalEditar" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalEditar()">&times;</span>
+                <h2>Editar usuario</h2>
+                <form id="formEditar" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="edit_usuario_id" name="usuario_id">
+                    <label>Nombre: <input type="text" id="edit_nombre" name="nombre"></label>
+                    <label>Apellido: <input type="text" id="edit_apellido" name="apellido"></label>
+                    <label>Nombre de usuario: <input type="text" id="edit_nombre_usuario" name="username"></label>
+                    <label>Correo: <input type="email" id="edit_correo" name="correo"></label>
+                    <label for="edit_rol_id">Rol:</label>
+                    <select name="rol_id" id="edit_rol_id">
+                        {% for rol in roles %}
+                        <option value="{{ rol.rol_id }}">{{ rol.rol }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Guardar cambios</button>
+                    <button type="button" onclick="cerrarModalEditar()">Cancelar</button>
+                </form>
+            </div>
+        </div>
         <!-- Modal de Confirmar Eliminación -->
         <div id="modalEliminar" class="modal">
             <div class="modal-content">
@@ -94,7 +121,7 @@
                 </form>
             </div>
         </div>
-        
+
     </div>
 </div>
 <!--Link del js-->

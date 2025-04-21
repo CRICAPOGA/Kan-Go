@@ -33,3 +33,17 @@ def eliminar_usuario(request, usuario_id):
         usuario.delete()
         return redirect('lista_usuarios')
     return redirect('lista_usuarios')
+
+#@staff_member_required(login_url='/')
+#@login_required
+def editar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, pk=usuario_id)
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_usuarios')
+    else:
+        form = UsuarioForm(instance=usuario)
+    
+    return render(request, 'usuarios.html', {'form': form, 'usuario': usuario})
