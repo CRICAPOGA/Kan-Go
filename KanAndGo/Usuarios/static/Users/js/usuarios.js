@@ -12,3 +12,16 @@ window.onclick = function(event) {
         event.target.style.display = "none";
     }
 }
+
+// Modal de eliminación
+function abrirModalEliminar(usuarioId, nombreUsuario, apellidoUsuario) {
+    const form = document.getElementById('formEliminar');
+    form.action = `/usuarios/eliminar/${usuarioId}/`; 
+    document.getElementById('nombreUsuarioEliminar').textContent = `"${nombreUsuario} ${apellidoUsuario}"`;
+    document.getElementById('modalEliminar').style.display = "block";
+}
+
+function cerrarModalEliminar() {
+    // Ocultar modal cuando el usuario le de en cerrar
+    document.getElementById('modalEliminar').style.display = "none";
+}

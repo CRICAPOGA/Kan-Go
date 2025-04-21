@@ -40,7 +40,10 @@
                         <td class="text-center align-middle">
                             <div class="d-flex flex-wrap justify-content-center gap-2">
                                 <a href="#" class="btn btn-sm shadow-sm">Editar</a>
-                                <a href="#" class="btn btn-sm shadow-sm">Eliminar</a>
+                                <a href="javascript:void(0);"
+                                    onclick="abrirModalEliminar('{{ usuario.usuario_id }}', '{{ usuario.nombre }}', '{{ usuario.apellido }}')">🗑️
+                                    Eliminar
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -79,6 +82,19 @@
                 </form>
             </div>
         </div>
+        <!-- Modal de Confirmar Eliminación -->
+        <div id="modalEliminar" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalEliminar()">&times;</span>
+                <h2>¿Estás seguro de que deseas eliminar al usuario <span id="nombreUsuarioEliminar"></span>?</h2>
+                <form id="formEliminar" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Sí, eliminar</button>
+                    <button type="button" onclick="cerrarModalEliminar()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+        
     </div>
 </div>
 <!--Link del js-->
