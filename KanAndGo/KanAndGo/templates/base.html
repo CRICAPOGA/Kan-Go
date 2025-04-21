@@ -1,0 +1,87 @@
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="left">
+            <div class="menu-container">
+                <div class="menu" id="menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="brand">
+                <ion-icon class="logo" name="copy-outline"></ion-icon>
+                <span class="name">Kan&Go</span>
+            </div>
+        </div>
+        <div class="right">
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="icons-header" title="Cerrar sesión">
+                <ion-icon name="log-out-outline"></ion-icon>
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}" class="icons-header" title="Iniciar sesión">
+                <ion-icon name="person-circle-sharp"></ion-icon>
+            </a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'home' %}" class="selected">
+                        <ion-icon name="home-outline"></ion-icon>
+                        <span>Página de inicio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'proyectos:proyectos' %}">
+                        <ion-icon name="folder-open-outline"></ion-icon>
+                        <span>Proyectos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pomodoro.html">
+                        <ion-icon name="hourglass-outline"></ion-icon>
+                        <span>Pomodoro</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="calendario.html">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span>Calendario</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <main id="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script>
+        const menu = document.getElementById('menu');
+        const sidebar = document.getElementById('sidebar');
+        const main = document.getElementById('main');
+
+        // Sidebar inicia visible
+        let visible = true;
+
+        menu.addEventListener('click', () => {
+            visible = !visible;
+            sidebar.classList.toggle('hidden', !visible);
+            main.classList.toggle('hidden', !visible);
+        });
+    </script>
+</body>
