@@ -144,7 +144,7 @@ header {
     padding: 1.1rem 0;
     border-right: 1px solid #e6e9ed;
     overflow-y: auto;
-    background-color: #555;
+    background-color: white;
     transition: width 0.3s ease;
 }
 

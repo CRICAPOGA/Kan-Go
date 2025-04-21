@@ -7,10 +7,10 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'Proyects/css/estilo.css' %}">
 
-    <h1>Dashboard</h1>
+    <h1>Mis Proyectos</h1>
 
     <!--Botón crear proyecto-->
-    <button onclick="abrirModalCrear()">+ Crear nuevo proyecto</button>
+    <button onclick="abrirModalCrear()">Crear un nuevo proyecto</button>
 
     <hr>
     <!--Proyectos-->
@@ -62,8 +62,8 @@
     </div>
     <!-- Modal de Editar -->
     <div id="modalEditar" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModalEditar()">&times;</span>
+        <div class="modal-content" >
+            <span class="btn-cancelar" onclick="cerrarModalEditar()">&times;</span>
             <div id="contenedorForm">
                 <!-- Aquí va el contenido del formulario cargado con AJAX -->
             </div>
@@ -77,9 +77,9 @@
             <p id="nombreProyectoEliminar"></p>
             <form id="formEliminar" method="POST">
                 {% csrf_token %}
-                <button type="submit">Sí, eliminar</button>
-                <button type="button" onclick="cerrarModalEliminar()">Cancelar</button>
-            </form>
+                <button type="submit" class="btn-guardar">Sí, eliminar</button>
+                <button type="button" class="btn-cancelar" onclick="cerrarModalEliminar()">Cancelar</button>
+            </form>            
         </div>
     </div>
 

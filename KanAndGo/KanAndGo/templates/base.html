@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="{% static 'base.css' %}">
+    <style>
+        .bg-image {
+            background: url("{% static 'img/fondo2.jpg' %}") no-repeat center center fixed;
+            background-size: cover !important;
+            background-blend-mode: darken;
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-image">
     <header>
         <div class="left">
             <div class="menu-container">
