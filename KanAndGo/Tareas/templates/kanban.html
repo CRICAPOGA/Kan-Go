@@ -13,7 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token }}">
     <title>Tablero Kanban</title>
     <!--Link del estilo-->
-    <link rel="stylesheet" href="{% static 'Tasks/css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/kanban.css' %}">
 </head>
 
 <body data-url-actualizar="{% url 'tareas:actualizar_estado_tarea' %}">
@@ -183,7 +183,7 @@
     </div>
 
     <!--Link del js-->
-    <script src="{% static 'Tasks/js/tareas.js' %}"></script>
+    <script src="{% static 'js/tareas.js' %}"></script>
 </body>
 
 </html>
