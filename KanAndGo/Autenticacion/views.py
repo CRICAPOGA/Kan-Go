@@ -5,9 +5,6 @@ from django.contrib import messages
 
 from Usuarios.models import Usuario, Rol
 
-def login_view(request):
-    return render(request, 'login.html')
-
 def login_auth(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -18,15 +15,15 @@ def login_auth(request):
             return render(request, 'home.html')
         else:
             messages.error(request,'Credenciales incorrectas')
-            return render(request, 'login.html')
-    return render(request, 'login.html')
+            return render(request, 'acceso.html')
+    return render(request, 'acceso.html')
 
 @login_required
 def logout_view(request):
     logout(request)
-    return render(request, 'login.html')
+    return render(request, 'acceso.html')
 
-def register_view(request):
+def register_auth(request):
     roles = Rol.objects.all()
     
     if request.method == 'POST':
@@ -39,7 +36,7 @@ def register_view(request):
 
         if Usuario.objects.filter(username=username).exists():
             messages.error(request, 'El nombre de usuario ya está en uso.')
-            return redirect('register')
+            return redirect('acceso')
 
         usuario = Usuario.objects.create_user(
             username=username,
@@ -52,9 +49,9 @@ def register_view(request):
         usuario.save()
         
         messages.success(request, 'Usuario registrado exitosamente')
-        return redirect('login')
+        return redirect('acceso')
     
-    return render(request, 'register.html', {'roles': roles})
+    return render(request, 'acceso.html', {'roles': roles})
 
 def acceso(request):
     return render(request, 'acceso.html')

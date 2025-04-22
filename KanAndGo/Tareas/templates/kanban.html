@@ -20,11 +20,11 @@
     <h1>Tablero Kanban: {{ proyecto.nombre_proyecto }}</h1>
 
     <!--Botón crear tarea-->
-    <button onclick="abrirModalCrear()">+ Crear nueva tarea</button>
+    <button class="add-task-button" onclick="abrirModalCrear()">Nueva tarea</button>
 
     <!--Columna "por hacer"-->
-    <div class="column" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
-        <h2>Pendiente</h2>
+    <div class="column todo" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
+        <h3>Pendiente</h3>
         {% for tarea in tareas_por_hacer %}
         <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
             data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
@@ -49,8 +49,8 @@
         {% endfor %}
     </div>
     <!--Columna "en proceso"-->
-    <div class="column" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
-        <h2>En Proceso</h2>
+    <div class="column in-progress" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
+        <h3>En Proceso</h3>
         {% for tarea in tareas_en_progreso %}
         <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
             data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
@@ -76,8 +76,8 @@
     </div>
 
     <!--Columna "realizado"-->
-    <div class="column" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
-        <h2>Completado</h2>
+    <div class="column done" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
+        <h3>Completado</h3>
         {% for tarea in tareas_hechas %}
         <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
             data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
@@ -120,13 +120,12 @@
                 <label for="id_fecha_vencimiento">Fecha de vencimiento:</label>
                 <input type="date" name="fecha_vencimiento" id="id_fecha_vencimiento" required>
 
-                <label for="id_es_urgente">¿Es urgente?</label>
-                <input type="checkbox" name="es_urgente" id="id_es_urgente">
+                <div class="checkbox-group">
+                    <label for="id_es_urgente"><input type="checkbox" name="es_urgente" id="id_es_urgente">¿Es urgente?</label>
+                    <label for="id_es_importante"><input type="checkbox" name="es_importante" id="id_es_importante">¿Es importante?</label>
+                </div>
 
-                <label for="id_es_importante">¿Es importante?</label>
-                <input type="checkbox" name="es_importante" id="id_es_importante">
-
-                <button type="submit">Crear</button>
+                <button class="add-task-button" type="submit">Crear</button>
             </form>
         </div>
     </div>
@@ -150,7 +149,7 @@
             <form id="formEliminar" method="POST">
                 {% csrf_token %}
                 <button type="submit">Sí, eliminar</button>
-                <button type="button" onclick="cerrarModalEliminar()">Cancelar</button>
+                <button type="button" style="background-color: #d34343; color: white;" onclick="cerrarModalEliminar()">Cancelar</button>
             </form>
         </div>
     </div>
@@ -165,10 +164,12 @@
                 <label>Título: <input type="text" id="edit_titulo" name="titulo"></label>
                 <label>Descripción: <textarea id="edit_descripcion" name="descripcion"></textarea></label>
                 <label>Fecha de vencimiento: <input type="date" id="edit_fecha_vencimiento" name="fecha_vencimiento"></label>
-                <label><input type="checkbox" id="edit_es_urgente" name="es_urgente"> Urgente</label>
-                <label><input type="checkbox" id="edit_es_importante" name="es_importante"> Importante</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="edit_es_urgente" name="es_urgente">Es urgente</label>
+                    <label for="id_es_importante"><input type="checkbox" id="edit_es_importante" name="es_importante">Importante</label>
+                </div>
                 <button type="submit">Guardar cambios</button>
-                <button type="button" onclick="cerrarModalEditar()">Cancelar</button>
+                <button type="button" style="background-color: #d34343; color: white;"  onclick="cerrarModalEditar()">Cancelar</button>
             </form>
         </div>
     </div>    

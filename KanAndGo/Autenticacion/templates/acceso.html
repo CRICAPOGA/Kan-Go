@@ -8,21 +8,22 @@
     <!-- Enlace al paquete de iconos Boxicons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!--Link del css-->
-    <link rel="stylesheet" href="{% static 'Autentication/css/estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
 </head>
 <body>
     <div class="container">
         <!-- Caja de formulario para el inicio de sesión -->
         <div class="form-box login">
-            <form action="">
+            <form action="{% url 'login_auth' %}" method="POST">
+                {% csrf_token %}
                 <h1>Inicia sesión</h1>
                 <!-- Campos del formulario -->
                 <div class="input-box">
-                    <input type="text" placeholder="Nombre de usuario" required>
+                    <input type="text" placeholder="Nombre de usuario"  id="username" name="username" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Contraseña" required>
+                    <input type="password" placeholder="Contraseña" id="password" name="password" required>
                     <i class='bx bxs-lock'></i>
                 </div>
                 <!-- Enlace recuperación de contraseña -->
@@ -32,36 +33,45 @@
                 <!-- Enviar formulario de inicio de sesión -->
                 <button type="submit" class="btn">Iniciar sesión</button>
                 <!-- Iniciar con Google -->
-                <p>o inicia sesión con</p>
+                <!-- <p>o inicia sesión con</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google'></i></a>
-                </div>
+                </div> -->
             </form>
         </div>
         <!-- Caja de formulario para el registro -->
         <div class="form-box register">
-            <form action="">
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
                 <h1>Registrate</h1>
                 <!-- Campos del formulario -->
+                <div class="name-row">
+                    <div class="input-box">
+                        <input type="text" placeholder="Nombre" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" placeholder="Apellido" id="apellido" name="apellido" required>
+                    </div>
+                </div>
                 <div class="input-box">
-                    <input type="text" placeholder="Nombre de usuario" required>
+                    <input type="text" placeholder="Nombre de usuario" id="username" name="username" required>
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="email" placeholder="Correo" required>
+                    <input type="email" placeholder="Correo" id="correo" name="correo" required>
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Contraseña" required>
+                    <input type="password" placeholder="Contraseña" id="password" name="password" required>
                     <i class='bx bxs-lock'></i>
                 </div>
                 <!-- Enviar formulario de registro -->
                 <button type="submit" class="btn">Registrarse</button>
                 <!-- Registrarse con Google -->
-                <p>o registrate con</p>
+                <!-- <p>o registrate con</p>
                 <div class="social-icons">
                     <a href="#"><i class='bx bxl-google' ></i></a>
-                </div>
+                </div> -->
             </form>
         </div>
         <!-- Caja de alternancia entre login y registro -->
@@ -81,6 +91,6 @@
         </div>        
     </div>
     <!--Link del js-->
-    <script src="{% static 'Autentication/js/animacion.js' %}"></script>
+    <script src="{% static 'js/animacion.js' %}"></script>
 </body>
 </html>

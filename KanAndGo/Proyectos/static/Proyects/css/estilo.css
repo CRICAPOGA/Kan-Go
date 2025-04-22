@@ -186,6 +186,8 @@ hr {
     line-height: 1.5;
     height: auto;
     box-sizing: border-box;
+    display: block;
+    margin: 20px auto 0 auto;
 }
 
 .modal-buttons .btn-guardar {

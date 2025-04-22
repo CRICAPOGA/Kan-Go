@@ -1,0 +1,129 @@
+{% load static %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!--Link del estilo-->
+<link rel="stylesheet" href="{% static 'Users/css/estilo.css' %}">
+
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-120 px-3">
+    <div class="card shadow-lg bg-white rounded-4 p-4 m-4 col-lg-9 col-md-10 col-sm-12">
+        <h2 class="text-center fw-bold mt-2 mb-4">Gestión de Usuarios</h2>
+        <hr class="border-1 opacity-75 mt-1">
+
+        <!-- Botón para agregar usuario -->
+        <button onclick="abrirModalCrear()">+ Crear nuevo usuario</button>
+
+        <!-- Tabla de Usuarios -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover rounded-3 overflow-hidden">
+                <thead class="text-white">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Apellido</th>
+                        <th class="text-center">Nombre de Usuario</th>
+                        <th class="text-center">Correo</th>
+                        <th class="text-center">Rol</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    {% if usuario.role_id.role_id != 3 %}
+                    <tr>
+                        <td class="align-middle text-center">{{ usuario.usuario_id }}</td>
+                        <td class="align-middle">{{ usuario.nombre }}</td>
+                        <td class="align-middle">{{ usuario.apellido }}</td>
+                        <td class="align-middle">{{ usuario.username }}</td>
+                        <td class="align-middle">{{ usuario.correo }}</td>
+                        <td class="align-middle">{{ usuario.rol_id.rol }}</td>
+                        <td class="text-center align-middle">
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <span class="edit-icon" onclick="abrirModalEditar(this)"
+                                    data-id="{{ usuario.usuario_id }}" data-nombre="{{ usuario.nombre }}"
+                                    data-apellido="{{ usuario.apellido }}" data-nombre_usuario="{{ usuario.username }}"
+                                    data-correo="{{ usuario.correo }}" data-rol_id="{{ usuario.rol_id.rol_id }}">
+                                    ✏️
+                                </span>
+                                <a href="javascript:void(0);"
+                                    onclick="abrirModalEliminar('{{ usuario.usuario_id }}', '{{ usuario.nombre }}', '{{ usuario.apellido }}')">🗑️
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Modal de Crear Usuario -->
+        <div id="modalCrear" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalCrear()">&times;</span>
+                <h2>Crear nuevo Usuario</h2>
+                <form id="formCrear" method="POST" action="{% url 'crear_usuario' %}">
+                    {% csrf_token %}
+
+                    <label for="id_nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="id_nombre" required>
+
+                    <label for="id_apellido">Apellido:</label>
+                    <input type="text" name="apellido" id="id_apellido" required>
+
+                    <label for="id_username">Nombre de Usuario:</label>
+                    <input type="text" name="username" id="id_username" required>
+
+                    <label for="id_correo">Correo:</label>
+                    <input type="email" name="correo" id="id_correo" required>
+
+                    <label for="id_rol_id">Rol:</label>
+                    <select name="rol_id" id="id_rol_id" required>
+                        {% for rol in roles %}
+                        <option value="{{ rol.rol_id }}">{{ rol.rol }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Crear Usuario</button>
+                </form>
+            </div>
+        </div>
+        <!-- Modal de Editar -->
+        <div id="modalEditar" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalEditar()">&times;</span>
+                <h2>Editar usuario</h2>
+                <form id="formEditar" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" id="edit_usuario_id" name="usuario_id">
+                    <label>Nombre: <input type="text" id="edit_nombre" name="nombre"></label>
+                    <label>Apellido: <input type="text" id="edit_apellido" name="apellido"></label>
+                    <label>Nombre de usuario: <input type="text" id="edit_nombre_usuario" name="username"></label>
+                    <label>Correo: <input type="email" id="edit_correo" name="correo"></label>
+                    <label for="edit_rol_id">Rol:</label>
+                    <select name="rol_id" id="edit_rol_id">
+                        {% for rol in roles %}
+                        <option value="{{ rol.rol_id }}">{{ rol.rol }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Guardar cambios</button>
+                    <button type="button" onclick="cerrarModalEditar()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+        <!-- Modal de Confirmar Eliminación -->
+        <div id="modalEliminar" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalEliminar()">&times;</span>
+                <h2>¿Estás seguro de que deseas eliminar al usuario <span id="nombreUsuarioEliminar"></span>?</h2>
+                <form id="formEliminar" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Sí, eliminar</button>
+                    <button type="button" onclick="cerrarModalEliminar()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--Link del js-->
+<script src="{% static 'Users/js/usuarios.js' %}"></script>
+{% endblock %}
