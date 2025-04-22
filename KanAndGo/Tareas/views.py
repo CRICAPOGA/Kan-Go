@@ -3,48 +3,14 @@ from Proyectos.models import Proyecto
 from Etiquetas.models import Etiqueta, DetalleEtiqueta
 from .models import Tarea
 from django.http import JsonResponse
-from django.core.serializers import serialize
 import json
 from django.db import models
 from .forms import TareaForm
-from calendar import monthrange
-from datetime import date
 from django.contrib.auth.decorators import login_required
 
 @login_required
 def calendario(request):
-    proyectos = Proyecto.objects.filter(fecha_finalizacion__isnull=False)
-    return render(request, 'calendario.html', {'proyectos': proyectos})
-
-@login_required
-def calendario(request):
-    hoy = date.today()
-    mes = int(request.GET.get('mes', hoy.month))
-    anio = int(request.GET.get('anio', hoy.year))
-    
-    primer_dia = date(anio, mes, 1)
-    ultimo_dia = date(anio, mes, monthrange(anio, mes)[1])
-
-    tareas = Tarea.objects.filter(fecha_vencimiento__range=(primer_dia, ultimo_dia))
-
-    tareas_dict = {}
-    for tarea in tareas:
-        fecha_str = tarea.fecha_vencimiento.strftime('%Y-%m-%d')
-        if fecha_str not in tareas_dict:
-            tareas_dict[fecha_str] = []
-        tareas_dict[fecha_str].append({
-            'id': tarea.tarea_id,
-            'titulo': tarea.titulo,
-            'proyecto': tarea.proyecto_id.nombre_proyecto,
-        })
-
-    contexto = {
-        'mes': mes,
-        'anio': anio,
-        'tareas_json': json.dumps(tareas_dict or {})
-    }
-
-    return render(request, 'calendario.html', contexto)
+    return render(request, 'calendario.html')
 
 @login_required
 def tablero_kanban(request, proyecto_id):

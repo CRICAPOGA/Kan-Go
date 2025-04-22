@@ -5,6 +5,7 @@
 {% load static %}
 
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -29,13 +30,14 @@
     <div class="task-panel">
       <h3 id="selected-date">Selecciona una fecha</h3>
       <ul id="task-list"></ul>
+      <div class="add-task">
+        <input type="text" id="task-input" placeholder="Nueva tarea">
+        <button id="add-task-btn">Agregar</button>
+      </div>
     </div>
   </div>
 
-  <script>
-    const tareasPorDia = JSON.parse('{{ tareas_json|escapejs }}');
-  </script>  
-  <script src="{% static 'js/calendario.js' %}"></script>
+<script src="{% static 'js/calendario.js' %}"></script>
 </body>
 </html>
 {% endblock %}
