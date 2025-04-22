@@ -1,116 +1,108 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  body {
-    background: #f0f4f8;
-    padding: 20px;
-  }
-  
-  .calendar-container {
-    max-width: 900px;
-    margin: auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    overflow: hidden;
-  }
-  
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background: #2c3e50;
-    color: white;
-  }
-  
-  .calendar-header button {
-    background: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    color: #1e90ff;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .calendar {
-    padding: 1rem;
-  }
-  
-  .day-names {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  .calendar-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-  }
-  
-  .calendar-days div {
-    background: #f7f7f7;
-    border-radius: 6px;
-    padding: 10px;
-    min-height: 70px;
-    text-align: center;
-    cursor: pointer;
-    transition: background 0.2s ease;
-    position: relative;
-  }
-  
-  .calendar-days div:hover {
-    background: #e0eaff;
-  }
-  
-  .calendar-days .today {
-    background: #2c3e50;
-    color: white;
-  }
-  
-  .task-panel {
-    padding: 1rem;
-    border-top: 1px solid #eee;
-  }
-  
-  #task-list {
-    list-style: none;
-    margin: 10px 0;
-  }
-  
-  #task-list li {
-    background: #f1f1f1;
-    padding: 5px 10px;
-    margin-bottom: 5px;
-    border-radius: 4px;
-  }
-  
-  .add-task {
-    display: flex;
-    gap: 10px;
-  }
-  
-  #task-input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  #add-task-btn {
-    padding: 8px 12px;
-    background: #2c3e50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #f0f4f8;
+  padding: 20px;
+}
+
+.calendar-container {
+  max-width: 900px;
+  margin: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #2c3e50;
+  color: white;
+}
+
+.calendar-header button {
+  background: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #1e90ff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.calendar {
+  padding: 1rem;
+}
+
+.day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-days div {
+  background: #f7f7f7;
+  border-radius: 6px;
+  padding: 10px;
+  min-height: 70px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  position: relative;
+}
+
+.calendar-days div:hover {
+  background: #e0eaff;
+}
+
+.calendar-days .today {
+  background: #2c3e50;
+  color: white;
+}
+
+.task-panel {
+  padding: 1rem;
+  border-top: 1px solid #eee;
+}
+
+#task-list {
+  list-style: none;
+  margin: 10px 0;
+}
+
+#task-list li {
+  background: #f1f1f1;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.project-indicator {
+  display: inline-block !important;
+  padding: 0 2px; 
+  font-size: 14px !important;  /* Ajusta este tamaño según el texto */
+  background-color: #9fb7ee !important;  /* Puedes ajustar el color de fondo */
+  color: rgb(0, 0, 0);
+  border-radius: 12px ;  /* Bordes redondeados */
+  margin-left: 5px !important;   /* Espaciado entre el día y el cuadro */
+  text-align: center !important; /* Centra el texto */
+  white-space: nowrap !important; /* Evita que el texto se corte si es largo */
+  min-width: 10px !important;     /* Asegura que el cuadro tenga un ancho mínimo */
+  height: auto !important;
+}
