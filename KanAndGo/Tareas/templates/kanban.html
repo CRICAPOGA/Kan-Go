@@ -22,6 +22,9 @@
     <!--Botón crear tarea-->
     <button class="add-task-button" onclick="abrirModalCrear()">Nueva tarea</button>
 
+    <!-- Botón para crear etiquetas -->
+    <a href="{% url 'crear_etiqueta' %}" class="add-task-button">Nueva Etiqueta</a>
+
     <!--Columna "por hacer"-->
     <div class="column todo" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
         <h3>Pendiente</h3>
@@ -117,6 +120,14 @@
                     <label for="id_es_importante"><input type="checkbox" name="es_importante" id="id_es_importante">¿Es
                         importante?</label>
                 </div>
+
+                <label for="id_etiqueta">Etiqueta:</label>
+                <select name="etiqueta" id="id_etiqueta" required>
+                    <option value="" disabled selected>Selecciona una categoría</option>
+                    {% for etiqueta in etiquetas %}
+                    <option value="{{ etiqueta.etiqueta_id }}">{{ etiqueta.etiqueta }}</option>
+                    {% endfor %}
+                </select>
 
                 <button class="add-task-button" type="submit">Crear</button>
             </form>

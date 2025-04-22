@@ -6,7 +6,7 @@ from Tareas.models import Tarea
 class Etiqueta(models.Model):
     etiqueta_id = models.AutoField(primary_key=True, verbose_name="Id")
     etiqueta = models.CharField(max_length=50, unique=True, verbose_name="Etiqueta")
-    color = models.CharField(max_length=6, blank=True, null=True, verbose_name="Color") # En hexadecimal
+    color = models.CharField(max_length=7, blank=True, null=True, verbose_name="Color") # En hexadecimal
     usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name='Usuario')
 
     def __str__(self):

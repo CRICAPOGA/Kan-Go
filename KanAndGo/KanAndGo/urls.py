@@ -27,4 +27,5 @@ urlpatterns = [
     path('proyectos/', include('Proyectos.urls')),
     path('tareas/', include('Tareas.urls')),
     path('usuarios/', include('Usuarios.urls')),
+    path('etiquetas/', include('Etiquetas.urls')),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

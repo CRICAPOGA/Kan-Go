@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Etiqueta{% endblock %}
+
+{% block content %}
+<h1>Crear Etiqueta</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Crear</button>
+</form>
+{% endblock %}

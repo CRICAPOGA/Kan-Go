@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from Proyectos.models import Proyecto
+from Etiquetas.models import Etiqueta, DetalleEtiqueta
 from .models import Tarea
 from django.http import JsonResponse
 import json
@@ -31,6 +32,7 @@ def tablero_kanban(request, proyecto_id):
         'tareas_por_hacer': orden_prioridad(tareas.filter(estado=0)),
         'tareas_en_progreso': orden_prioridad(tareas.filter(estado=1)),
         'tareas_hechas': orden_prioridad(tareas.filter(estado=2)),
+        'etiquetas': Etiqueta.objects.filter(usuario_id=request.user),
     }
     return render(request, 'kanban.html', contexto)
 
