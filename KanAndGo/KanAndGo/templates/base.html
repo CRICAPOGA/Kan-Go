@@ -52,19 +52,19 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li>
-                    <a href="{% url 'proyectos:proyectos' %}">
+                    <a href="{% url 'proyectos' %}">
                         <ion-icon name="folder-open-outline"></ion-icon>
                         <span>Proyectos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="{% url 'pomodoro' %}">
                         <ion-icon name="hourglass-outline"></ion-icon>
                         <span>Pomodoro</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'tareas:calendario' %}">
+                    <a href="{% url 'calendario' %}">
                         <ion-icon name="calendar-outline"></ion-icon>
                         <span>Calendario</span>
                     </a>

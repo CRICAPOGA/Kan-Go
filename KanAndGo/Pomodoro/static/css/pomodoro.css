@@ -1,0 +1,42 @@
+.add {
+    margin-left: 70%;
+    margin-right: 0%;
+}
+
+.temporizador {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.formulario--editable {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.boton--formulario--editable {
+    padding: 2rem;
+}
+
+.barra-tiempo-redonda {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-tiempo-redonda div {
+    height: 100%;
+    background-color: #4caf50; /* Cambia este color al que prefieras */
+    border-radius: 10px;
+    width: 0; /* Ancho inicial en cero */
+}
