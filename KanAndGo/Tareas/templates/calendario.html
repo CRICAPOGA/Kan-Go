@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Calendario{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calendario de Tareas</title>
+  <link rel="stylesheet" href="{% static 'Tasks/css/calendario.css' %}">
+</head>
+<body>
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <button id="prev-month">&lt;</button>
+      <h2 id="month-year"></h2>
+      <button id="next-month">&gt;</button>
+    </div>
+    <div class="calendar">
+      <div class="day-names">
+        <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span>
+        <span>Jue</span><span>Vie</span><span>Sáb</span>
+      </div>
+      <div id="calendar-days" class="calendar-days"></div>
+    </div>
+    <div class="task-panel">
+      <h3 id="selected-date">Selecciona una fecha</h3>
+      <ul id="task-list"></ul>
+      <div class="add-task">
+        <input type="text" id="task-input" placeholder="Nueva tarea">
+        <button id="add-task-btn">Agregar</button>
+      </div>
+    </div>
+  </div>
+
+<script src="{% static 'Tasks/js/calendario.js' %}"></script>
+</body>
+</html>
+{% endblock %}

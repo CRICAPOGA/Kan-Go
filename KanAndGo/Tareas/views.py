@@ -5,6 +5,12 @@ from django.http import JsonResponse
 import json
 from django.db import models
 from .forms import TareaForm
+from django.shortcuts import render
+from django.http import JsonResponse
+from .models import Proyecto
+
+def calendario(request):
+    return render(request, 'calendario.html')
 
 def tablero_kanban(request, proyecto_id):
     # Obtener proyecto y tareas asociadas
