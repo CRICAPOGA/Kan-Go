@@ -1,21 +1,11 @@
-body {
-    background-color: #121212 !important;
-    color: #ffffff !important;
-}
-
-.navbar {
-    background-color: #1f1f1f !important;
-}
-
 .add {
     margin-left: 70%;
     margin-right: 0%;
 }
 
-.timer {
+.temporizador {
     font-size: 2em;
     margin-bottom: 20px;
-    color: #bb86fc !important;
 }
 
 button {
@@ -25,7 +15,7 @@ button {
     margin: 0 5px;
 }
 
-.editable--form {
+.formulario--editable {
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -33,21 +23,20 @@ button {
     margin: 0 auto;
 }
 
-.editable--form--btn {
+.boton--formulario--editable {
     padding: 2rem;
 }
 
-.round-time-bar {
+.barra-tiempo-redonda {
     width: 100%;
     height: 20px;
-    background-color: #1f1f1f !important;
     border-radius: 10px;
     overflow: hidden;
 }
 
-.round-time-bar div {
+.barra-tiempo-redonda div {
     height: 100%;
-    background-color: #4caf50; /* Change this color to your preferred color */
+    background-color: #4caf50; /* Cambia este color al que prefieras */
     border-radius: 10px;
-    width: 0; /* Set initial width to zero */
+    width: 0; /* Ancho inicial en cero */
 }
