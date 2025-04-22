@@ -9,6 +9,10 @@ from .forms import TareaForm
 from django.contrib.auth.decorators import login_required
 
 @login_required
+def calendario(request):
+    return render(request, 'calendario.html')
+
+@login_required
 def tablero_kanban(request, proyecto_id):
     # Obtener proyecto y tareas asociadas
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
