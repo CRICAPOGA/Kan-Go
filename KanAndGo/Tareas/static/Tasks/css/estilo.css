@@ -39,6 +39,7 @@ h2 {
 .todo {
     background-color: #ffe6e6;
 }
+
 .todo h3 {
     background-color: #ff9999;
     color: black;
@@ -47,6 +48,7 @@ h2 {
 .in-progress {
     background-color: #fff1dc;
 }
+
 .in-progress h3 {
     background-color: #ffd49a;
     color: black;
@@ -55,6 +57,7 @@ h2 {
 .done {
     background-color: #e6ffe6;
 }
+
 .done h3 {
     background-color: #baffba;
     color: black;
@@ -86,13 +89,15 @@ h2 {
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .add-task-button:hover {
     background-color: #45a049;
 }
 
 /* Estilos del fondo del Modal */
 .modal {
-    display: none; /* Por defecto, el modal está oculto */
+    display: none;
+    /* Por defecto, el modal está oculto */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -100,7 +105,8 @@ h2 {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5); /* fondo oscurecido */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* fondo oscurecido */
     padding-top: 60px;
     transition: background-color 0.3s ease-in-out;
 }
@@ -125,6 +131,7 @@ h2 {
         transform: translateY(-30px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;

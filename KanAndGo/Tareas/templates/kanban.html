@@ -33,15 +33,12 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
-            <span class="edit-icon"
-                onclick="abrirModalEditar(this)"
-                data-id="{{ tarea.tarea_id }}"
-                data-titulo="{{ tarea.titulo }}"
-                data-descripcion="{{ tarea.descripcion }}"
+            <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
                 data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
                 data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
                 data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-              ✏️
+                ✏️
             </span>
             <span class="delete-icon"
                 onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
@@ -59,15 +56,12 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
-            <span class="edit-icon"
-                onclick="abrirModalEditar(this)"
-                data-id="{{ tarea.tarea_id }}"
-                data-titulo="{{ tarea.titulo }}"
-                data-descripcion="{{ tarea.descripcion }}"
+            <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
                 data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
                 data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
                 data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-              ✏️
+                ✏️
             </span>
             <span class="delete-icon"
                 onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
@@ -86,15 +80,12 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
-            <span class="edit-icon"
-                onclick="abrirModalEditar(this)"
-                data-id="{{ tarea.tarea_id }}"
-                data-titulo="{{ tarea.titulo }}"
-                data-descripcion="{{ tarea.descripcion }}"
+            <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
                 data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
                 data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
                 data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-              ✏️
+                ✏️
             </span>
             <span class="delete-icon"
                 onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
@@ -121,8 +112,10 @@
                 <input type="date" name="fecha_vencimiento" id="id_fecha_vencimiento" required>
 
                 <div class="checkbox-group">
-                    <label for="id_es_urgente"><input type="checkbox" name="es_urgente" id="id_es_urgente">¿Es urgente?</label>
-                    <label for="id_es_importante"><input type="checkbox" name="es_importante" id="id_es_importante">¿Es importante?</label>
+                    <label for="id_es_urgente"><input type="checkbox" name="es_urgente" id="id_es_urgente">¿Es
+                        urgente?</label>
+                    <label for="id_es_importante"><input type="checkbox" name="es_importante" id="id_es_importante">¿Es
+                        importante?</label>
                 </div>
 
                 <button class="add-task-button" type="submit">Crear</button>
@@ -149,7 +142,8 @@
             <form id="formEliminar" method="POST">
                 {% csrf_token %}
                 <button type="submit">Sí, eliminar</button>
-                <button type="button" style="background-color: #d34343; color: white;" onclick="cerrarModalEliminar()">Cancelar</button>
+                <button type="button" style="background-color: #d34343; color: white;"
+                    onclick="cerrarModalEliminar()">Cancelar</button>
             </form>
         </div>
     </div>
@@ -163,17 +157,20 @@
                 <input type="hidden" id="edit_tarea_id" name="tarea_id">
                 <label>Título: <input type="text" id="edit_titulo" name="titulo"></label>
                 <label>Descripción: <textarea id="edit_descripcion" name="descripcion"></textarea></label>
-                <label>Fecha de vencimiento: <input type="date" id="edit_fecha_vencimiento" name="fecha_vencimiento"></label>
+                <label>Fecha de vencimiento: <input type="date" id="edit_fecha_vencimiento"
+                        name="fecha_vencimiento"></label>
                 <div class="checkbox-group">
                     <label><input type="checkbox" id="edit_es_urgente" name="es_urgente">Es urgente</label>
-                    <label for="id_es_importante"><input type="checkbox" id="edit_es_importante" name="es_importante">Importante</label>
+                    <label for="id_es_importante"><input type="checkbox" id="edit_es_importante"
+                            name="es_importante">Importante</label>
                 </div>
                 <button type="submit">Guardar cambios</button>
-                <button type="button" style="background-color: #d34343; color: white;"  onclick="cerrarModalEditar()">Cancelar</button>
+                <button type="button" style="background-color: #d34343; color: white;"
+                    onclick="cerrarModalEditar()">Cancelar</button>
             </form>
         </div>
-    </div>    
-  
+    </div>
+
     <!--Link del js-->
     <script src="{% static 'Tasks/js/tareas.js' %}"></script>
 </body>
