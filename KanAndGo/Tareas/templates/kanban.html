@@ -19,11 +19,13 @@
 <body data-url-actualizar="{% url 'tareas:actualizar_estado_tarea' %}">
     <h1>Tablero Kanban: {{ proyecto.nombre_proyecto }}</h1>
 
-    <!--Botón crear tarea-->
-    <button class="add-task-button" onclick="abrirModalCrear()">Nueva tarea</button>
-
-    <!-- Botón para crear etiquetas -->
-    <a href="{% url 'crear_etiqueta' %}" class="add-task-button">Nueva Etiqueta</a>
+    <div class="button-container">
+        <!--Botón crear tarea-->
+        <button class="add-task-button" onclick="abrirModalCrear()">Nueva tarea</button>
+    
+        <!-- Botón para crear etiquetas -->
+        <a href="{% url 'crear_etiqueta' %}" class="add-task-button" style="background-color: #7fa8ff; color: white;">Nueva Etiqueta</a>
+    </div>
 
     <!--Columna "por hacer"-->
     <div class="column todo" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
@@ -48,6 +50,7 @@
         </div>
         {% endfor %}
     </div>
+
     <!--Columna "en proceso"-->
     <div class="column in-progress" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
         <h3>En Proceso</h3>
@@ -100,7 +103,7 @@
     <div id="modalCrear" class="modal">
         <div class="modal-content">
             <span class="close" onclick="cerrarModalCrear()">&times;</span>
-            <h2>Crear nuevo proyecto</h2>
+            <h2>Crear Tarea</h2>
             <form id="formCrear" method="POST" action="{% url 'tareas:crear_tarea' proyecto.proyecto_id %}">
                 {% csrf_token %}
                 <input type="hidden" name="proyecto_id" value="{{ proyecto.id }}">
@@ -133,6 +136,7 @@
             </form>
         </div>
     </div>
+
     <!-- Modal Detalles de Tarea -->
     <div id="modalDetalle" class="modal">
         <div class="modal-content">
@@ -144,6 +148,7 @@
             <p><strong>Importante:</strong> <span id="detalleImportante"></span></p>
         </div>
     </div>
+
     <!-- Modal de Confirmar Eliminación -->
     <div id="modalEliminar" class="modal">
         <div class="modal-content">
@@ -158,6 +163,7 @@
             </form>
         </div>
     </div>
+
     <!-- Modal de Editar -->
     <div id="modalEditar" class="modal">
         <div class="modal-content">

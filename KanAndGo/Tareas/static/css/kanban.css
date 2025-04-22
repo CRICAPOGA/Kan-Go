@@ -76,6 +76,13 @@ h2 {
     cursor: default;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    gap: 20px; /* Espacio entre los botones */
+    margin: 20px 0;
+}
+
 /* Botón Agregar Tarea */
 .add-task-button {
     background-color: #4CAF50;
@@ -194,3 +201,4 @@ h2 {
 .modal-content button:hover {
     background-color: #45a049;
 }
+
