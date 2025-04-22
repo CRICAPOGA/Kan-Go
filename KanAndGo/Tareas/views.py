@@ -6,7 +6,9 @@ from django.http import JsonResponse
 import json
 from django.db import models
 from .forms import TareaForm
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def tablero_kanban(request, proyecto_id):
     # Obtener proyecto y tareas asociadas
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
@@ -36,6 +38,7 @@ def tablero_kanban(request, proyecto_id):
     }
     return render(request, 'kanban.html', contexto)
 
+@login_required
 def actualizar_estado_tarea(request):
     if request.method == "POST":
         # Obtener datos
@@ -48,6 +51,7 @@ def actualizar_estado_tarea(request):
         return JsonResponse({"success": True})
     return JsonResponse({"error": "Método no permitido"}, status=405)
 
+@login_required
 def crear_tarea(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id)
     if request.method == 'POST':
@@ -61,6 +65,7 @@ def crear_tarea(request, proyecto_id):
             form = TareaForm()
     return render(request, 'kanban.html', {'form': form})
 
+@login_required
 def eliminar_tarea(request, tarea_id):
     tarea = get_object_or_404(Tarea, pk=tarea_id)
     if request.method == 'POST':
@@ -68,6 +73,7 @@ def eliminar_tarea(request, tarea_id):
         return redirect('tareas:kanban', proyecto_id=tarea.proyecto_id.proyecto_id)
     return redirect('tareas:kanban', proyecto_id=tarea.proyecto_id.proyecto_id)
 
+@login_required
 def editar_tarea(request, tarea_id):
     tarea = get_object_or_404(Tarea, pk=tarea_id)
     if request.method == 'POST':

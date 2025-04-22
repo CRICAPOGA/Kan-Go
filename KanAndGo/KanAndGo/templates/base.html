@@ -50,6 +50,7 @@
                         <span>Página de inicio</span>
                     </a>
                 </li>
+                {% if user.is_authenticated %}
                 <li>
                     <a href="{% url 'proyectos:proyectos' %}">
                         <ion-icon name="folder-open-outline"></ion-icon>
@@ -68,12 +69,15 @@
                         <span>Calendario</span>
                     </a>
                 </li>
+                {% if user.is_staff %}
                 <li>
                     <a href="{% url 'lista_usuarios' %}">
                         <ion-icon name="person-circle-sharp"></ion-icon>
                         <span>Usuarios</span>
                     </a>
                 </li>
+                {% endif %}
+                {% endif %}
             </ul>
         </nav>
     </div>

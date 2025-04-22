@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Proyecto
 from .forms import ProyectoForm
 
 ######################### CRUD PROYECTOS #########################
+@login_required
 def proyectos(request):
     proyectos = Proyecto.objects.filter(usuario_id=request.user)
     return render(request, 'proyectos.html', {'proyectos': proyectos})
 
+@login_required
 def crear_proyecto(request):
     if request.method == 'POST':
         form = ProyectoForm(request.POST)
@@ -20,6 +23,7 @@ def crear_proyecto(request):
         form = ProyectoForm()
     return render(request, 'proyectos.html', {'form': form})
 
+@login_required
 def editar_proyecto(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id, usuario_id=request.user)
     # Si la solicitud es POST guardar cambios
@@ -37,6 +41,7 @@ def editar_proyecto(request, proyecto_id):
 
     return render(request, 'editar_proyecto.html', {'form': form, 'proyecto': proyecto})
 
+@login_required
 def eliminar_proyecto(request, proyecto_id):
     proyecto = get_object_or_404(Proyecto, pk=proyecto_id, usuario_id=request.user)
 
