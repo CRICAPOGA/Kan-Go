@@ -116,6 +116,7 @@
                 </form>
             </div>
         </div>
+
         <!-- Modal de Editar -->
         <div id="modalEditar" class="modal">
             <div class="modal-content">
@@ -140,6 +141,7 @@
                 </form>
             </div>
         </div>
+
         <!-- Modal de Confirmar Eliminación -->
         <div id="modalEliminar" class="modal">
             <div class="modal-content">
@@ -168,15 +170,14 @@
         </div>
 
         <!-- Modal Editar Rol -->
-        <!-- Modal Editar Rol -->
         <div id="modalEditarR" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="cerrarModalEditarR()">&times;</span>
                 <h2>Editar rol</h2>
-                <form id="formEditar" method="POST">
+                <form id="formEditarRol" method="POST">
                     {% csrf_token %}
                     <label>Selecciona un rol:</label>
-                    <select name="rol_id" id="edit_rol_id" onchange="actualizarInputRol(this)">
+                    <select id="edit_rol_id_select" onchange="actualizarInputRol(this)">
                         {% for rol in roles %}
                         <option value="{{ rol.rol_id }}" data-nombre="{{ rol.rol }}">{{ rol.rol }}</option>
                         {% endfor %}
@@ -191,7 +192,6 @@
                 </form>
             </div>
         </div>
-
 
         <!-- Modal de Confirmar Eliminación de Rol -->
         <div id="modalEliminarR" class="modal">

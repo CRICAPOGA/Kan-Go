@@ -72,7 +72,6 @@ def editar_rol(request, rol_id):
             rol.rol = nuevo_nombre
             rol.save()
             messages.success(request, 'Rol actualizado correctamente.')
-        return redirect('lista_usuarios')
     return redirect('lista_usuarios')
 
 @staff_member_required(login_url='/')
@@ -81,7 +80,6 @@ def eliminar_rol(request, rol_id):
     rol = get_object_or_404(Rol, pk=rol_id)
     if request.method == 'POST':
         rol.delete()
-        messages.success(request, 'Rol eliminado correctamente.')
     return redirect('lista_usuarios')
 
 

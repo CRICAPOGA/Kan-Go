@@ -75,16 +75,15 @@ window.onclick = function (event) {
     }
 }
 
-//Modal Editar Rol
+//Modal para editar rol
 function abrirModalEditarR(elemento) {
     const rolId = elemento.getAttribute('data-rol_id');
     const rolNombre = elemento.getAttribute('data-rol');
 
     const select = document.getElementById('edit_rol_id');
     const input = document.getElementById('editRolNombre');
-    const form = document.getElementById('formEditar');
+    const form = document.getElementById('formEditarRol');
 
-    // Selecciona el rol en el select
     for (let i = 0; i < select.options.length; i++) {
         if (select.options[i].value === rolId) {
             select.selectedIndex = i;
@@ -92,10 +91,7 @@ function abrirModalEditarR(elemento) {
         }
     }
 
-    // Establece el valor en el input
     input.value = rolNombre;
-
-    // Actualiza la acción del formulario
     form.action = `/usuarios/roles/editar/${rolId}/`;
 
     document.getElementById('modalEditarR').style.display = 'block';
@@ -107,7 +103,7 @@ function actualizarInputRol(select) {
     const rolId = selectedOption.value;
 
     document.getElementById('editRolNombre').value = nombreRol;
-    document.getElementById('formEditar').action = `/usuarios/roles/editar/${rolId}/`;
+    document.getElementById('formEditarRol').action = `/usuarios/roles/editar/${rolId}/`;
 }
 
 function cerrarModalEditarR() {
