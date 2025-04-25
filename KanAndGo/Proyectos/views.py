@@ -35,10 +35,7 @@ def editar_proyecto(request, proyecto_id):
     else:
         # Crear form cargando los datos actuales desde la BD
         form = ProyectoForm(instance=proyecto)
-    # Verificar por XMLHttpRequest si la solicitud es AJAX
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        return render(request, 'editar_proyecto.html', {'form': form, 'proyecto': proyecto})
-
+    
     return render(request, 'editar_proyecto.html', {'form': form, 'proyecto': proyecto})
 
 @login_required
