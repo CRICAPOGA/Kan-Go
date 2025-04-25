@@ -5,36 +5,85 @@
 {% load static %}
 
 {% block content %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel='stylesheet' href="{% static 'css/pomodoro.css' %}">
-    <script src="{% static 'js/pomodoro.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+<link rel='stylesheet' href="{% static 'css/pomodoro.css' %}">
+<script src="{% static 'js/pomodoro.js' %}"></script>
 
-    <section class="timer--section py-5" style="background-color: #f8f9fa;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h1 class="display-4 text-primary mb-4">Temporizador Pomodoro</h1>
-                    <div class="timer p-4 mb-4" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                        <span id="horas" class="display-5 fw-bold text-dark">00</span>
-                        <span class="display-5 fw-bold text-dark">:</span>
-                        <span id="minutos" class="display-5 fw-bold text-dark">25</span>
-                        <span class="display-5 fw-bold text-dark">:</span>
-                        <span id="segundos" class="display-5 fw-bold text-dark">00</span>
-                    </div>
-                    <p class="h5 mt-3 text-secondary">Intervalos Completados: <span id="intervalosTrabajo" class="fw-bold text-primary">0</span></p>
-                    <div class="mt-4">
-                        <button class="btn btn-success btn-lg mx-2" onclick="iniciarTemporizadorPrincipal()">Iniciar</button>
-                        <button class="btn btn-warning btn-lg mx-2" onclick="pausarTemporizador()">Pausar</button>
-                        <button class="btn btn-danger btn-lg mx-2" onclick="reiniciarTemporizador()">Reiniciar</button>
-                    </div>
+<section class="timer--section py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="display-4 text-primary mb-4">Temporizador Pomodoro</h1>
+                <div class="timer p-4 mb-4" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <span id="horas" class="display-5 fw-bold text-dark">00</span>
+                    <span class="display-5 fw-bold text-dark">:</span>
+                    <span id="minutos" class="display-5 fw-bold text-dark">25</span>
+                    <span class="display-5 fw-bold text-dark">:</span>
+                    <span id="segundos" class="display-5 fw-bold text-dark">00</span>
+                </div>
+                <p class="h5 mt-3 text-secondary">Intervalos Completados: <span id="intervalosTrabajo" class="fw-bold text-primary">0</span></p>
+                <div class="mt-4">
+                    <button class="btn btn-success btn-lg mx-2" onclick="iniciarTemporizadorPrincipal()">Iniciar</button>
+                    <button class="btn btn-warning btn-lg mx-2" onclick="pausarTemporizador()">Pausar</button>
+                    <button class="btn btn-danger btn-lg mx-2" onclick="reiniciarTemporizador()">Reiniciar</button>
+                </div>
+                <div class="mt-4">
+                    <!-- Botón para abrir el modal -->
+                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#pomodoroModal">Gestionar Temporizadores</button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+<!-- Modal -->
+<div class="modal fade" id="pomodoroModal" tabindex="-1" aria-labelledby="pomodoroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pomodoroModalLabel">Gestionar Temporizadores</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario -->
+                <h5 class="mb-3">Crear Nuevo Temporizador</h5>
+                <form method="POST" action="{% url 'pomodoro' %}">
+                    {% csrf_token %}
+                    {{ formulario.as_p }}
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+                <hr>
+                <!-- Lista de temporizadores -->
+                <h5 class="mt-4">Temporizadores Existentes</h5>
+                <ul class="list-group">
+                    {% for temporizador in temporizadores %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                {{ temporizador.titulo }} - {{ temporizador.horas }}:{{ temporizador.minutos }}:{{ temporizador.segundos }}
+                                <span class="badge bg-primary rounded-pill">Prioridad: {{ temporizador.prioridad }}</span>
+                            </div>
+                            <div>
+                                <!-- Botón Eliminar -->
+                                <form method="POST" action="{% url 'eliminar_temporizador' temporizador.id %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm mx-1">Eliminar</button>
+                                </form>
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No hay temporizadores creados.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

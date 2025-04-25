@@ -13,6 +13,10 @@ class PomodoroForm(forms.ModelForm):
             'prioridad': forms.NumberInput(attrs={'required': 'required'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        self.usuario = kwargs.pop('usuario', None)  # Recibir el usuario como argumento
+        super().__init__(*args, **kwargs)
+
     def clean(self):
         datos_limpios = super().clean()
         horas = datos_limpios.get('horas', 0)
@@ -23,3 +27,11 @@ class PomodoroForm(forms.ModelForm):
             raise forms.ValidationError("Las horas, minutos y segundos deben ser no negativos.")
 
         return datos_limpios
+
+    def save(self, commit=True):
+        instancia = super().save(commit=False)
+        if self.usuario:
+            instancia.usuario_id = self.usuario  # Asignar el usuario al modelo
+        if commit:
+            instancia.save()
+        return instancia
