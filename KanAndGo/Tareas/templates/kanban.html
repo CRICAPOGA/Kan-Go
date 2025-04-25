@@ -145,8 +145,7 @@
     <div id="modalEliminar" class="modal">
         <div class="modal-content">
             <span class="close" onclick="cerrarModalEliminar()">&times;</span>
-            <h2>¿Estás seguro de que deseas eliminar esta tarea?</h2>
-            <p id="nombreTareaEliminar"></p>
+            <h2>¿Estás seguro de que deseas eliminar la tarea <span id="nombreTareaEliminar"></span>?</h2>
             <form id="formEliminar" method="POST">
                 {% csrf_token %}
                 <button type="submit">Sí, eliminar</button>
