@@ -5,17 +5,19 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def pomodoro(request):
+    titulo_tarea = request.GET.get('tarea', '')  # Obtener el título de la tarea desde los parámetros
     temporizadores = Temporizadores.objects.all().order_by('prioridad')
-    formulario = PomodoroForm(request.POST or None, usuario=request.user)  # Manejar POST o inicialización vacía
+    formulario = PomodoroForm(request.POST or None, usuario=request.user)
 
-    if request.method == 'POST':  # Verificar si la solicitud es POST
-        if formulario.is_valid():  # Validar el formulario
-            formulario.save()  # Guardar el formulario
-            return redirect('pomodoro')  # Redirigir para evitar reenvío del formulario
+    if request.method == 'POST':
+        if formulario.is_valid():
+            formulario.save()
+            return redirect('pomodoro')
 
     return render(request, 'pomodoro.html', {
         'formulario': formulario,
         'temporizadores': temporizadores,
+        'titulo_tarea': titulo_tarea,  # Pasar el título de la tarea al contexto
     })
 
 @login_required

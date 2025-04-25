@@ -86,4 +86,20 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            {% if titulo_tarea %}
+            <h2 class="text-secondary">Trabajando en: {{ titulo_tarea }}</h2>
+            <form method="POST" action="{% url 'tareas:actualizar_estado_tarea' %}">
+                {% csrf_token %}
+                <input type="hidden" name="tarea_titulo" value="{{ titulo_tarea }}">
+                <input type="hidden" name="estado" value="2"> <!-- Estado 2 = Completado -->
+                <button type="submit" class="btn btn-success btn-lg mt-4">Marcar como Finalizada</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}

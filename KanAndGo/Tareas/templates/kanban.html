@@ -31,23 +31,23 @@
     <div class="column todo" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
         <h3>Pendiente</h3>
         {% for tarea in tareas_por_hacer %}
-        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
-            data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
-            data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-            <div class="task-content" onclick="mostrarDetalleTarea(this)">
-                {{ tarea.titulo }}
-            </div>
-            <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
-                data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
-                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
-                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-                ✏️
-            </span>
-            <span class="delete-icon"
-                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
-        </div>
+<div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+    data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+    data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+    data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+    <div class="task-content" onclick="mostrarDetalleTarea(this)">
+        {{ tarea.titulo }}
+    </div>
+    <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
+        data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+        data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+        data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+        data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+        ✏️
+    </span>
+    <span class="delete-icon" onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+    <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
+</div>
         {% endfor %}
     </div>
 
@@ -71,6 +71,7 @@
             </span>
             <span class="delete-icon"
                 onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+            <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
         </div>
         {% endfor %}
     </div>
@@ -95,6 +96,7 @@
             </span>
             <span class="delete-icon"
                 onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+            <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
         </div>
         {% endfor %}
     </div>

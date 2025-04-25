@@ -79,14 +79,20 @@ def tablero_kanban(request, proyecto_id):
 @login_required
 def actualizar_estado_tarea(request):
     if request.method == "POST":
-        # Obtener datos
-        data = json.loads(request.body)
-        # Buscar tarea en la BD
-        tarea = get_object_or_404(Tarea, pk=data["tarea_id"])
-        # Actualizar estado
-        tarea.estado = data["estado"]
+        # Obtener datos del formulario
+        tarea_titulo = request.POST.get("tarea_titulo")
+        nuevo_estado = request.POST.get("estado")
+
+        # Buscar la tarea por título
+        tarea = get_object_or_404(Tarea, titulo=tarea_titulo, proyecto_id__usuario_id=request.user)
+
+        # Actualizar el estado de la tarea
+        tarea.estado = nuevo_estado
         tarea.save()
-        return JsonResponse({"success": True})
+
+        # Redirigir al tablero Kanban del proyecto
+        return redirect('tareas:kanban', proyecto_id=tarea.proyecto_id.proyecto_id)
+
     return JsonResponse({"error": "Método no permitido"}, status=405)
 
 @login_required
