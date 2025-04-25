@@ -50,10 +50,13 @@
             </div>
             <div class="modal-body">
                 <!-- Formulario -->
-                <h5 class="mb-3">Crear Nuevo Temporizador</h5>
-                <form method="POST" action="{% url 'pomodoro' %}">
+                <form method="POST" action="{% url 'pomodoro' %}" class="p-4 border rounded bg-light">
                     {% csrf_token %}
+                    <h5 class="mb-3 text-primary">Crear Nuevo Temporizador</h5>
                     {{ formulario.as_p }}
+                    <div class="form-text text-muted mb-3">
+                        La prioridad debe estar entre 1 y 10, donde 1 es la más alta y 10 la más baja.
+                    </div>
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </form>
                 <hr>
