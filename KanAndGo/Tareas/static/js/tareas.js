@@ -145,3 +145,9 @@ function abrirModalEditar(elemento) {
 function cerrarModalEditar() {
     document.getElementById("modalEditar").style.display = "none";
 }
+
+function abrirPomodoro(tituloTarea) {
+    // Redirigir al temporizador Pomodoro con el título de la tarea como parámetro
+    const urlPomodoro = `/pomodoro/?tarea=${encodeURIComponent(tituloTarea)}`;
+    window.location.href = urlPomodoro;
+}
