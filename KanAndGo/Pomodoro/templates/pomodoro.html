@@ -12,33 +12,65 @@
     crossorigin="anonymous"></script>
 <link rel='stylesheet' href="{% static 'css/pomodoro.css' %}">
 <script src="{% static 'js/pomodoro.js' %}"></script>
+<script src="{% static 'js/temporizador.js' %}"></script>
 
 <section class="timer--section py-5" style="background-color: #f8f9fa;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <h1 class="display-4 text-primary mb-4">Temporizador Pomodoro</h1>
-                <div class="timer p-4 mb-4" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <h1 class="display-4 text-primary mb-4">Temporizador</h1>
+                
+                <!-- Botón para seleccionar entre Pomodoro y temporizadores creados -->
+                <div class="mb-4">
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <button class="btn btn-outline-primary btn-lg" onclick="mostrarPomodoro()">Pomodoro</button>
+                        {% if temporizadores %}
+                            <button class="btn btn-outline-secondary btn-lg" onclick="mostrarTemporizadores()">Temporizador Creado</button>
+                        {% endif %}
+                        <!-- Botón para abrir el modal de registro de temporizadores -->
+                        <button class="btn btn-outline-success btn-lg" data-bs-toggle="modal" data-bs-target="#pomodoroModal">Registrar Intervalos de Tiempo</button>
+                    </div>
+                </div>
+
+                <!-- Temporizador Pomodoro -->
+                <div id="pomodoroTimer" class="timer p-4 mb-4" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <h5 class="text-secondary mb-3">Temporizador Pomodoro</h5>
                     <span id="horas" class="display-5 fw-bold text-dark">00</span>
                     <span class="display-5 fw-bold text-dark">:</span>
                     <span id="minutos" class="display-5 fw-bold text-dark">25</span>
                     <span class="display-5 fw-bold text-dark">:</span>
                     <span id="segundos" class="display-5 fw-bold text-dark">00</span>
+                    <div class="mt-4">
+                        <button class="btn btn-success btn-lg mx-2" onclick="iniciarTemporizadorPrincipal()">Iniciar</button>
+                        <button class="btn btn-warning btn-lg mx-2" onclick="pausarTemporizador()">Pausar</button>
+                        <button class="btn btn-danger btn-lg mx-2" onclick="reiniciarTemporizador()">Reiniciar</button>
+                    </div>
+                    <!-- Mostrar intervalos completados -->
+                    <div class="mt-4">
+                        <h5 class="text-secondary">Intervalos completados: <span id="intervalosTrabajo" class="text-primary">0</span></h5>
+                    </div>
                 </div>
-                <p class="h5 mt-3 text-secondary">Intervalos Completados: <span id="intervalosTrabajo" class="fw-bold text-primary">0</span></p>
-                <div class="mt-4">
-                    <button class="btn btn-success btn-lg mx-2" onclick="iniciarTemporizadorPrincipal()">Iniciar</button>
-                    <button class="btn btn-warning btn-lg mx-2" onclick="pausarTemporizador()">Pausar</button>
-                    <button class="btn btn-danger btn-lg mx-2" onclick="reiniciarTemporizador()">Reiniciar</button>
-                </div>
-                <div class="mt-4">
-                    <!-- Botón para abrir el modal -->
-                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#pomodoroModal">Gestionar Temporizadores</button>
+
+                <!-- Temporizadores creados -->
+                <div id="customTimers" class="p-4 mb-4 d-none" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <h5 class="text-secondary mb-3">Temporizador Creado</h5>
+                    <span id="horasCreados" class="display-5 fw-bold text-dark">00</span>
+                    <span class="display-5 fw-bold text-dark">:</span>
+                    <span id="minutosCreados" class="display-5 fw-bold text-dark">00</span>
+                    <span class="display-5 fw-bold text-dark">:</span>
+                    <span id="segundosCreados" class="display-5 fw-bold text-dark">00</span>
+                    <div class="mt-4">
+                        <button class="btn btn-success btn-lg mx-2" onclick="iniciarTemporizadorPersonalizado()">Iniciar</button>
+                        <button class="btn btn-warning btn-lg mx-2" onclick="pausarTemporizadorPersonalizado()">Pausar</button>
+                        <button class="btn btn-danger btn-lg mx-2" onclick="reiniciarTemporizadorPersonalizado()">Reiniciar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="pomodoroModal" tabindex="-1" aria-labelledby="pomodoroModalLabel" aria-hidden="true">
@@ -105,4 +137,16 @@
     </div>
 </div>
 
+
+<script>
+    function mostrarPomodoro() {
+        document.getElementById('pomodoroTimer').classList.remove('d-none');
+        document.getElementById('customTimers').classList.add('d-none');
+    }
+
+    function mostrarTemporizadores() {
+        document.getElementById('pomodoroTimer').classList.add('d-none');
+        document.getElementById('customTimers').classList.remove('d-none');
+    }
+</script>
 {% endblock %}

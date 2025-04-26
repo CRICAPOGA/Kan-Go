@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def pomodoro(request):
     titulo_tarea = request.GET.get('tarea', '')  # Obtener el título de la tarea desde los parámetros
-    temporizadores = Temporizadores.objects.all().order_by('prioridad')
+    temporizadores = Temporizadores.objects.filter(usuario_id=request.user).order_by('prioridad')
     formulario = PomodoroForm(request.POST or None, usuario=request.user)
 
     if request.method == 'POST':
