@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Tareas',
     'Etiquetas',
     'Pomodoro',
+    'Reportes',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
             BASE_DIR / 'Tareas' / 'templates',
             BASE_DIR / 'Etiquetas' / 'templates',
             BASE_DIR / 'Pomodoro' / 'templates',
+            BASE_DIR / 'Reportes' / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -144,6 +146,7 @@ STATICFILES_DIRS = [
     BASE_DIR / 'Tareas' / 'static',
     BASE_DIR / 'Etiquetas' / 'static',
     BASE_DIR / 'Pomodoro' / 'static',
+    BASE_DIR / 'Reportes' / 'static',
 ]
 
 

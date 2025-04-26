@@ -30,4 +30,5 @@ urlpatterns = [
     path('usuarios/', include('Usuarios.urls')),
     path('etiquetas/', include('Etiquetas.urls')),
     path('pomodoro/', include('Pomodoro.urls')),
+    path('reportes/', include('Reportes.urls')),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
