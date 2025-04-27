@@ -1,12 +1,68 @@
 {% extends 'base.html' %}
 
-{% block title %}Crear Etiqueta{% endblock %}
+{% load static %}
+
+{% block title %}Etiquetas{% endblock %}
 
 {% block content %}
-<h1>Crear Etiqueta</h1>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Crear</button>
-</form>
+<link rel="stylesheet" href="{% static 'css/etiquetas.css' %}">
+
+<div class="etiquetas-container">
+    <div class="etiquetas-header">
+        <h2>Etiquetas</h2>
+    </div>
+
+    <!-- Barra de búsqueda -->
+    <div class="search-box">
+        <form method="get" action="">
+            <input type="text" name="q" id="search-input" value="{{ query }}" placeholder="Buscar etiquetas...">
+        </form>
+    </div>
+
+    <!-- Lista de etiquetas -->
+    <div class="etiquetas-list" id="etiquetas-list">
+        {% for etiqueta in etiquetas %}
+            <div class="etiqueta">
+                <div class="color-box" style="background-color: '{{ etiqueta.color }}'"></div>
+                <div class="nombre-etiqueta">{{ etiqueta.etiqueta }}</div>
+                <div class="acciones">
+                    <button class="edit-btn" onclick="abrirModalEditarEtiqueta(this)"
+                        data-id="{{ etiqueta.etiqueta_id }}" data-etiqueta="{{ etiqueta.etiqueta }}" 
+                        data-color="{{ etiqueta.color }}">
+                        ✎
+                    </button>
+                    <button class="delete-btn" onclick="abrirModalEliminarEtiqueta('{{ etiqueta.etiqueta_id }}', '{{ etiqueta.etiqueta }}')">
+                        🗑️
+                    </button>
+                </div>
+            </div>
+        {% empty %}
+            <p>No hay etiquetas disponibles.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="modalEditarEtiqueta" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalEditarEtiqueta()">&times;</span>
+        <h2>Editar Etiqueta</h2>
+        <form id="formEditarEtiqueta" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="etiqueta_id" id="editEtiquetaId">
+            
+            <label>Nombre de la etiqueta:</label>
+            <input type="text" name="etiqueta" id="editEtiquetaNombre" required>
+
+            <label>Color de la etiqueta:</label>
+            <input type="color" name="color" id="editEtiquetaColor">
+
+            <button type="submit">Actualizar</button>
+            <button type="button" style="background-color: #bb2d3b; color: white;" onclick="cerrarModalEditarEtiqueta()">Cancelar</button>
+        </form>
+    </div>
+</div>
+
+
+<script src="{% static 'js/etiquetas.js' %}"></script>
+
 {% endblock %}

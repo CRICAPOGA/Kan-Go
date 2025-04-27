@@ -22,32 +22,30 @@
     <div class="button-container">
         <!--Botón crear tarea-->
         <button class="add-task-button" onclick="abrirModalCrear()">Nueva tarea</button>
-    
-        <!-- Botón para crear etiquetas -->
-        <!-- <a href="{% url 'crear_etiqueta' %}" class="add-task-button" style="background-color: #7fa8ff; color: white;">Nueva Etiqueta</a> -->
     </div>
 
     <!--Columna "por hacer"-->
     <div class="column todo" ondrop="drop(event, 0)" ondragover="allowDrop(event)">
         <h3>Pendiente</h3>
         {% for tarea in tareas_por_hacer %}
-<div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
-    data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
-    data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-    data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-    <div class="task-content" onclick="mostrarDetalleTarea(this)">
-        {{ tarea.titulo }}
-    </div>
-    <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
-        data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
-        data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
-        data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-        data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-        ✏️
-    </span>
-    <span class="delete-icon" onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
-    <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
-</div>
+        <div class="task" draggable="true" ondragstart="drag(event)" id="tarea-{{ tarea.tarea_id }}"
+            data-id="{{ tarea.tarea_id }}" data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+            data-fecha="{{ tarea.fecha_vencimiento }}" data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+            data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+            <div class="task-content" onclick="mostrarDetalleTarea(this)">
+                {{ tarea.titulo }}
+            </div>
+            <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
+                data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+                ✏️
+            </span>
+            <span class="delete-icon"
+                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+            <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
+        </div>
         {% endfor %}
     </div>
 
@@ -140,6 +138,8 @@
             <p><strong>Fecha de vencimiento:</strong> <span id="detalleFecha"></span></p>
             <p><strong>Urgente:</strong> <span id="detalleUrgente"></span></p>
             <p><strong>Importante:</strong> <span id="detalleImportante"></span></p>
+            <button class="add-task-button" onclick="abrirModalCrearEtiqueta()" style="background-color: #7fa8ff;">+
+                Nueva Etiqueta</button>
         </div>
     </div>
 
@@ -147,8 +147,7 @@
     <div id="modalEliminar" class="modal">
         <div class="modal-content">
             <span class="close" onclick="cerrarModalEliminar()">&times;</span>
-            <h2>¿Estás seguro de que deseas eliminar esta tarea?</h2>
-            <p id="nombreTareaEliminar"></p>
+            <h2>¿Estás seguro de que deseas eliminar la tarea <span id="nombreTareaEliminar"></span>?</h2>
             <form id="formEliminar" method="POST">
                 {% csrf_token %}
                 <button type="submit">Sí, eliminar</button>
@@ -182,8 +181,28 @@
         </div>
     </div>
 
+    <!-- Modal Crear Etiqueta -->
+    <div id="modalCrearEtiqueta" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalCrearEtiqueta()">&times;</span>
+            <h2>Crear Nueva Etiqueta</h2>
+            <form id="formCrearEtiqueta" method="POST" action="{% url 'etiquetas:crear_etiqueta' %}">
+                {% csrf_token %}
+                <label for="id_etiqueta">Nombre de la Etiqueta:</label>
+                <input type="text" name="etiqueta" id="id_etiqueta" required>
+
+                <label for="id_color">Color:</label>
+                <input type="color" name="color" id="id_color">
+
+                <button type="submit" class="add-task-button" style="background-color: #7fa8ff;">Crear Etiqueta</button>
+            </form>
+        </div>
+    </div>
+
+
     <!--Link del js-->
     <script src="{% static 'js/tareas.js' %}"></script>
+    <script src="{% static 'js/etiquetas.js' %}"></script>
 </body>
 
 </html>

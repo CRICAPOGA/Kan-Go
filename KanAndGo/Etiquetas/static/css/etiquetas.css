@@ -1,0 +1,73 @@
+body {
+    background-color: rgb(246, 248, 250);
+    font-family: Arial, sans-serif;
+    color: rgb(58, 99, 133);
+    padding: 20px;
+}
+
+.etiquetas-container {
+    width: 300px;
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.etiquetas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.etiquetas-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    background-color: rgb(246, 248, 250);
+    color: rgb(58, 99, 133);
+}
+
+.etiqueta {
+    display: flex;
+    align-items: center;
+    background-color: rgb(246, 248, 250);
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.nombre-etiqueta {
+    flex-grow: 1;
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    color: rgb(58, 99, 133);
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    color: white;
+} 
+
+
+
