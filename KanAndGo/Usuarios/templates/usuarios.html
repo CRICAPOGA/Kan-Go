@@ -7,6 +7,16 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/usuarios.css' %}">
 
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <div class="container-fluid d-flex justify-content-center align-items-center min-vh-120 px-3">
     <div class="card shadow-lg bg-white rounded-4 p-4 m-4 col-lg-9 col-md-10 col-sm-12">
         <h2>Gestión de Usuarios</h2>
@@ -14,6 +24,9 @@
 
         <!-- Botón para agregar usuario -->
         <button onclick="abrirModalCrear()">Crear nuevo usuario</button>
+
+        <!-- Botón para agregar rol -->
+        <button onclick="abrirModalCrearR()">Crear nuevo rol</button>
 
         <!-- Tabla de Usuarios -->
         <div class="table-responsive">
@@ -26,12 +39,12 @@
                         <th class="text-center">Nombre de Usuario</th>
                         <th class="text-center">Correo</th>
                         <th class="text-center">Rol</th>
-                        <th class="text-center">Acciones</th>
+                        <th class="text-center">Acciones Usuario</th>
+                        <th class="text-center">Acciones Rol</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for usuario in usuarios %}
-                    {% if usuario.role_id.role_id != 3 %}
                     <tr>
                         <td class="align-middle text-center">{{ usuario.usuario_id }}</td>
                         <td class="align-middle">{{ usuario.nombre }}</td>
@@ -52,8 +65,22 @@
                                 </a>
                             </div>
                         </td>
+                        <td class="text-center align-middle">
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <!-- Botón editar rol -->
+                                <span class="edit-icon" onclick="abrirModalEditarR(this)"
+                                    data-rol_id="{{ usuario.rol_id.rol_id }}" data-rol="{{ usuario.rol_id.rol }}">
+                                    ✏️
+                                </span>
+
+                                <!-- Botón eliminar rol -->
+                                <a href="javascript:void(0);"
+                                    onclick="abrirModalEliminarR('{{ usuario.rol_id.rol_id }}', '{{ usuario.rol_id.rol|escapejs }}')">
+                                    🗑️
+                                </a>
+                            </div>
+                        </td>
                     </tr>
-                    {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
@@ -89,6 +116,7 @@
                 </form>
             </div>
         </div>
+
         <!-- Modal de Editar -->
         <div id="modalEditar" class="modal">
             <div class="modal-content">
@@ -108,10 +136,12 @@
                         {% endfor %}
                     </select>
                     <button type="submit">Guardar cambios</button>
-                    <button type="button" style="background-color: #bb2d3b; color: white;" onclick="cerrarModalEditar()">Cancelar</button>
+                    <button type="button" style="background-color: #bb2d3b; color: white;"
+                        onclick="cerrarModalEditar()">Cancelar</button>
                 </form>
             </div>
         </div>
+
         <!-- Modal de Confirmar Eliminación -->
         <div id="modalEliminar" class="modal">
             <div class="modal-content">
@@ -120,7 +150,72 @@
                 <form id="formEliminar" method="POST">
                     {% csrf_token %}
                     <button type="submit">Sí, eliminar</button>
-                    <button type="button" style="background-color: #bb2d3b; color: white;" onclick="cerrarModalEliminar()">Cancelar</button>
+                    <button type="button" style="background-color: #bb2d3b; color: white;"
+                        onclick="cerrarModalEliminar()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Crear Rol -->
+        <div id="modalCrearR" class="modal">
+            <div class="modal-content">
+                <span class="cerrar" onclick="cerrarModalCrearR()">&times;</span>
+                <h2>Crear Rol</h2>
+                <form id="formCrear" method="POST" action="{% url 'crear_rol' %}">
+                    {% csrf_token %}
+                    <input type="text" name="rol" placeholder="Nombre del rol" required>
+                    <button type="submit" class="btn verde">Crear Rol</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Editar Rol -->
+        <div id="modalEditarR" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalEditarR()">&times;</span>
+                <h2>Editar rol</h2>
+                <form id="formEditarRol" method="POST">
+                    {% csrf_token %}
+                    <label>Selecciona un rol:</label>
+                    <select id="edit_rol_id_select" onchange="actualizarInputRol(this)">
+                        {% for rol in roles %}
+                        <option value="{{ rol.rol_id }}" data-nombre="{{ rol.rol }}">{{ rol.rol }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label>Nuevo nombre del rol:</label>
+                    <input type="text" name="rol" id="editRolNombre" required>
+
+                    <button type="submit">Actualizar</button>
+                    <button type="button" style="background-color: #bb2d3b; color: white;"
+                        onclick="cerrarModalEditarR()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmar Eliminación de Rol -->
+        <div id="modalEliminarR" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalEliminarR()">&times;</span>
+                <h2>¿Estás seguro de que deseas eliminar el siguiente rol?</h2>
+
+                <form id="formEliminarRol" method="POST">
+                    {% csrf_token %}
+
+                    <label for="selectRolEliminar">Selecciona un rol:</label>
+                    <select id="selectRolEliminar" name="rol_id" onchange="actualizarNombreRolEliminar(this)">
+                        {% for rol in roles %}
+                        <option value="{{ rol.rol_id }}" data-nombre="{{ rol.rol }}">{{ rol.rol }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <!-- Campo oculto para el ID -->
+                    <input type="hidden" id="hiddenRolId" name="rol_id_hidden">
+
+                    <p>Rol seleccionado: <strong id="nombreRolEliminar"></strong></p>
+
+                    <button type="submit" style="background-color: red; color: white;">Sí, eliminar</button>
+                    <button type="button" onclick="cerrarModalEliminarR()">Cancelar</button>
                 </form>
             </div>
         </div>
