@@ -1,5 +1,6 @@
 from django.db import models
 from Usuarios.models import Usuario
+from Tareas.models import Tarea
 
 # Create your models here.
 class Temporizadores(models.Model):
@@ -13,3 +14,13 @@ class Temporizadores(models.Model):
 
     def __str__(self):
         return self.titulo + str(self.horas) + ':' + str(self.minutos) + ':' + str(self.segundos)
+
+class Sesiones(models.Model):
+    tarea_id = models.ForeignKey(Tarea, on_delete=models.CASCADE, verbose_name='Tarea', null=True, blank=True)
+    sesiones = models.IntegerField(default=0)
+    fecha = models.DateField(auto_now_add=True, verbose_name='Fecha')
+    hora = models.TimeField(auto_now_add=True, verbose_name='Hora')
+
+    def __str__(self):
+        return str(self.tarea_id) + ' - ' + str(self.sesiones) + ' - ' + str(self.tiempo_trabajo)
+    
