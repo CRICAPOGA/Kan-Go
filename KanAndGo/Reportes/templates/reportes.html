@@ -4,5 +4,136 @@
 {% block title %}Reportes{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/reportes.css' %}">
 <h2>Reporte de Progreso y Cumplimiento de Tareas</h2>
+<form method="get">
+    <label for="fecha_filtro">Rango de fechas:</label>
+    <select name="fecha_filtro" id="fecha_filtro">
+        <option value="">-- Selecciona un rango --</option>
+        <option value="semana">Semana actual</option>
+        <option value="mes">Último mes</option>
+        <option value="personalizado">Rango personalizado</option>
+    </select>
+
+    <div id="fechas_personalizadas" style="display:none;">
+        <label for="fecha_inicio">Desde:</label>
+        <input type="date" name="fecha_inicio">
+        <label for="fecha_fin">Hasta:</label>
+        <input type="date" name="fecha_fin">
+    </div>
+
+    <button type="submit">Filtrar</button>
+<div class="card">
+    <h3>Métricas Generales</h3>
+    <p>Cantidad total de proyectos: <strong>{{ total_proyectos }}</strong></p>
+    <p>Activos: <strong>{{ activos }}</strong></p>
+    <p>Completados: <strong>{{ completados }}</strong></p>
+
+    <p>Porcentaje de avance promedio: <strong>{{ avance_promedio }}%</strong></p>
+
+    {% if proyectos_mas_pendientes %}
+    <p>Proyectos con más tareas pendientes:</p>
+    {% for proyecto in proyectos_mas_pendientes %}
+    <p><strong>- {{ proyecto.nombre }} ({{ proyecto.pendientes }} tareas pendientes)</strong></p>
+    {% endfor %}
+    {% else %}
+    <p>No hay proyectos con tareas pendientes.</p>
+    {% endif %}
+
+</div>
+
+<div class="card">
+    <h3>🗂️ Listado de Proyectos</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre del Proyecto</th>
+                    <th>Estado</th>
+                    <th>% Avance</th>
+                    <th>Total de Tareas</th>
+                    <th>Tareas Pendientes</th>
+                    <th>Tareas En Proceso</th>
+                    <th>Tareas Completadas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resumen in resumen_proyectos %}
+                <tr>
+                    <td>{{ resumen.nombre }}</td>
+                    <td>
+                        {% if resumen.estado %}
+                        Activo
+                        {% else %}
+                        Finalizado
+                        {% endif %}
+                    </td>
+                    <td>{{ resumen.avance }}%</td>
+                    <td>{{ resumen.total_tareas }}</td>
+                    <td>{{ resumen.pendientes }}</td>
+                    <td>{{ resumen.en_proceso }}</td>
+                    <td>{{ resumen.completadas }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</form>
+<hr style="margin: 30px 0;">
+
+<form method="get">
+    <label for="proyecto_id">Proyecto:</label>
+    <select name="proyecto_id" id="selec_proyecto_id">
+        {% for proyecto in proyectos %}
+    <option value="{{ proyecto.proyecto_id }}" {% if proyecto_seleccionado and proyecto.proyecto_id == proyecto_seleccionado.proyecto_id %}selected{% endif %}>
+        {{ proyecto.nombre_proyecto }}
+    </option>
+    {% endfor %}
+    </select>
+
+    <button type="submit">Filtrar</button>
+</form>
+
+{% if rango_fecha %}
+<p>Filtrando desde: <strong>{{ rango_fecha.0 }}</strong> hasta <strong>{{ rango_fecha.1 }}</strong></p>
+{% endif %}
+<hr style="margin: 20px 0;">
+
+
+<div class="card">
+    {% if proyecto_seleccionado %}
+    <h3>Resumen General Proyecto {{ proyecto_seleccionado.nombre_proyecto }}</h3>
+    {% endif %}
+    {% if total_tareas %}
+    <p>Total de tareas: <strong>{{ total_tareas }}</strong></p>
+    <p>Tareas completadas: <strong>{{ tareas_completadas }}</strong></p>
+    <p>Tareas en progreso: <strong>{{ tareas_en_progreso }}</strong></p>
+    <p>Tareas pendientes: <strong>{{ tareas_pendientes }}</strong></p>
+    <p>Tareas vencidas: <strong>{{ tareas_vencidas }}</strong></p>
+    <p>Avance general:</p>
+    <!-- Barra de progreso -->
+    <div class="progress-container">
+        <progress id="avance-bar" value="{{ avance_general|floatformat:0 }}" max="100"></progress>
+        <span id="avance-text">{{ avance_general|floatformat:2 }}%</span>
+    </div>
+</div>
+<!-- Datos y Gráfico -->
+<div id="datos-tareas" data-completadas="{{ tareas_completadas }}" data-en-progreso="{{ tareas_en_progreso }}"
+    data-pendientes="{{ tareas_pendientes }}" data-vencidas="{{ tareas_vencidas }}">
+</div>
+<div class="card">
+    <h3>Distribución de Tareas</h3>
+    <div class="grafico-container">
+        <canvas id="graficoTareas"></canvas>
+    </div>
+</div>
+
+{% endif %}
+
+<!-- JS personalizado -->
+<script src="{% static 'js/reportes.js' %}"></script>
+<!-- CDN de Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 {% endblock %}
