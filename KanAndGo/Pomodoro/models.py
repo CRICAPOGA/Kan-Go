@@ -22,5 +22,5 @@ class Sesiones(models.Model):
     hora = models.TimeField(auto_now_add=True, verbose_name='Hora')
 
     def __str__(self):
-        return str(self.tarea_id) + ' - ' + str(self.sesiones) + ' - ' + str(self.tiempo_trabajo)
+        return str(self.tarea_id) + ' - ' + str(self.sesiones)
     
