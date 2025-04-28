@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def calendario(request):
-    proyectos = Proyecto.objects.filter(fecha_finalizacion__isnull=False)
+    proyectos = Proyecto.objects.filter(fecha_finalizacion__isnull=False, usuario_id=request.user)
     return render(request, 'calendario.html', {'proyectos': proyectos})
 
 @login_required
@@ -25,7 +25,7 @@ def calendario(request):
     primer_dia = date(anio, mes, 1)
     ultimo_dia = date(anio, mes, monthrange(anio, mes)[1])
 
-    tareas = Tarea.objects.filter(fecha_vencimiento__range=(primer_dia, ultimo_dia))
+    tareas = Tarea.objects.filter(fecha_vencimiento__range=(primer_dia, ultimo_dia), proyecto_id__usuario_id=request.user)
 
     tareas_dict = {}
     for tarea in tareas:
