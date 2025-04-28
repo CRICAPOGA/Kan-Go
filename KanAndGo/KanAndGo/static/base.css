@@ -131,21 +131,15 @@ header {
 
 /*Sidebar*/
 .sidebar {
-    margin-top: 4.5rem;
-    /*4*/
-    width: 18.75rem;
-    height: 100%;
-    position: fixed;
-    /*mantenga posicion*/
+    width: 0; /* Inicialmente oculto */
+    transition: width 0.3s ease; /* Animación suave */
+    position: fixed; /* Siempre fija */
     top: 0;
     left: 0;
-    z-index: 100;
-    /*mostrarse sobre todos elementos*/
-    padding: 1.1rem 0;
-    border-right: 1px solid #e6e9ed;
+    height: 100vh;
     overflow-y: auto;
     background-color: white;
-    transition: width 0.3s ease;
+    z-index: 100;
 }
 
 .sidebar.menu-toggle {
@@ -191,7 +185,7 @@ main.hidden {
 /*Main*/
 main {
     margin-top: 4rem;
-    margin-left: 18.75rem;
+    margin-left: 0;
     padding: 2rem;
     transition: margin-left 0.3s ease;
 }
@@ -214,12 +208,16 @@ main.hidden {
         width: 0;
     }
 
+    .sidebar.menu-toggle {
+        width: 100%;
+    }
+
     main {
         margin-left: 0;
     }
 
     main.menu-toggle {
-        margin-left: 0;
+        margin-left: 0 !important; 
     }
 
     .menu.menu-toggle div:first-child {
@@ -236,3 +234,59 @@ main.hidden {
         transform: rotate(45deg) translate(-0.65rem, 0.1rem);
     }
 }
+
+/*Responsive*/
+@media(max-width: 500px) {
+    .right .icons-header {
+        display: block; /* Asegúrate de que los iconos estén visibles en dispositivos pequeños */
+    }
+
+    .sidebar {
+        width: 0; /* Inicialmente ocultar la barra lateral */
+    }
+
+    main {
+        margin-left: 0; /* Ajustar el margen principal */
+    }
+
+    main.menu-toggle {
+        margin-left: 0; /* Ajustar cuando el menú se abre */
+    }
+
+    .menu.menu-toggle div:first-child {
+        width: 70%;
+        transform: rotate(-45deg) translate(-0.7rem, 0.1rem);
+    }
+
+    .menu.menu-toggle div:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu.menu-toggle div:last-child {
+        width: 70%;
+        transform: rotate(45deg) translate(-0.65rem, 0.1rem);
+    }
+
+    /* Ajustar la barra lateral cuando se activa el menú */
+    .sidebar.menu-toggle {
+        width: 0%; /* Hacer la barra lateral ocupar el 100% */
+        position: fixed; /* Hacerla fija */
+        left: 0;
+        top: 0;
+        height: 100vh;
+    }
+
+    .sidebar a {
+        padding: 1rem 2rem;
+    }
+
+    main.menu-toggle {
+        margin-left: 0 !important; /* Ocultar margen cuando el menú esté abierto */
+    }
+
+    /* Ocultar elementos en dispositivos pequeños */
+    .menu-container {
+        display: block;
+    }
+}
+

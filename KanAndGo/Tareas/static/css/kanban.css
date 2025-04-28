@@ -81,6 +81,7 @@ h2 {
     justify-content: center; /* Centra horizontalmente */
     gap: 20px; /* Espacio entre los botones */
     margin: 20px 0;
+    cursor:pointer;
 }
 
 /* Botón Agregar Tarea */
@@ -95,6 +96,7 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor:pointer;
 }
 
 .add-task-button:hover {

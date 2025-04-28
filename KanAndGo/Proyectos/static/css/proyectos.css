@@ -31,6 +31,7 @@ button {
     border-radius: 30px;
     transition: 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor:pointer;
 }
 
 button:hover {
@@ -188,6 +189,7 @@ hr {
     box-sizing: border-box;
     display: block;
     margin: 20px auto 0 auto;
+    cursor:pointer;
 }
 
 .modal-buttons .btn-guardar {

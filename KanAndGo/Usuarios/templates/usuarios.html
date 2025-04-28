@@ -136,8 +136,6 @@
                         {% endfor %}
                     </select>
                     <button type="submit">Guardar cambios</button>
-                    <button type="button" style="background-color: #bb2d3b; color: white;"
-                        onclick="cerrarModalEditar()">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -150,8 +148,6 @@
                 <form id="formEliminar" method="POST">
                     {% csrf_token %}
                     <button type="submit">Sí, eliminar</button>
-                    <button type="button" style="background-color: #bb2d3b; color: white;"
-                        onclick="cerrarModalEliminar()">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -159,7 +155,7 @@
         <!-- Modal Crear Rol -->
         <div id="modalCrearR" class="modal">
             <div class="modal-content">
-                <span class="cerrar" onclick="cerrarModalCrearR()">&times;</span>
+                <span class="close" onclick="cerrarModalCrearR()">&times;</span>
                 <h2>Crear Rol</h2>
                 <form id="formCrear" method="POST" action="{% url 'crear_rol' %}">
                     {% csrf_token %}
@@ -187,8 +183,6 @@
                     <input type="text" name="rol" id="editRolNombre" required>
 
                     <button type="submit">Actualizar</button>
-                    <button type="button" style="background-color: #bb2d3b; color: white;"
-                        onclick="cerrarModalEditarR()">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -214,8 +208,8 @@
 
                     <p>Rol seleccionado: <strong id="nombreRolEliminar"></strong></p>
 
-                    <button type="submit" style="background-color: red; color: white;">Sí, eliminar</button>
-                    <button type="button" onclick="cerrarModalEliminarR()">Cancelar</button>
+                    <button type="submit">Sí, eliminar</button>
+
                 </form>
             </div>
         </div>
