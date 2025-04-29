@@ -49,11 +49,22 @@ function iniciarTemporizadorPersonalizado() {
 
 // Función para ejecutar un temporizador basado en el índice actual
 function ejecutarTemporizadorSecuencial() {
+    if (!Array.isArray(temporizadoresCreados) || temporizadoresCreados.length === 0) {
+        console.error("No hay temporizadores creados o la lista no es válida.");
+        return;
+    }
+
     if (indiceTemporizador >= temporizadoresCreados.length) {
+        console.log("No hay más temporizadores para ejecutar. Reiniciando al primero.");
         indiceTemporizador = 0; // Reiniciar al primer temporizador
     }
 
     const temporizador = temporizadoresCreados[indiceTemporizador];
+    if (!temporizador) {
+        console.error(`No se encontró un temporizador en el índice ${indiceTemporizador}`);
+        return;
+    }
+
     console.log(`Iniciando temporizador: ${temporizador.titulo}`);
     iniciarTemporizador(temporizador.horas, temporizador.minutos, temporizador.segundos, () => {
         // Callback al finalizar el temporizador actual

@@ -4,6 +4,7 @@ from Tareas.models import Tarea
 from .forms import PomodoroForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+import json
 
 @login_required
 def pomodoro(request):
@@ -23,6 +24,7 @@ def pomodoro(request):
         }
         for t in temporizadores
     ]
+    print(temporizadores_data)
 
     if request.method == 'POST':
         if formulario.is_valid():
@@ -32,7 +34,7 @@ def pomodoro(request):
     return render(request, 'pomodoro.html', {
         'formulario': formulario,
         'temporizadores': temporizadores,
-        'temporizadores_json': temporizadores_data,  # Pasar los datos serializados
+        'temporizadores_json': json.dumps(temporizadores_data),  # Pasar los datos serializados
         'titulo_tarea': titulo_tarea,  # Pasar el título de la tarea al contexto
     })
 

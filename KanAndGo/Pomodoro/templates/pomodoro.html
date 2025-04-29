@@ -6,8 +6,8 @@
 
 {% block content %}
 <script>
-    // Pasar los temporizadores al JavaScript como un objeto JSON
-    const temporizadoresCreados = '{{ temporizadores_json | safe }}';
+    const temporizadoresCreados = JSON.parse('{{ temporizadores_json | escapejs }}');
+    console.log("Temporizadores creados:", temporizadoresCreados); // Depuración
 </script>
 <link rel='stylesheet' href="{% static 'css/pomodoro.css' %}">
 <script src="{% static 'js/pomodoro.js' %}"></script>
