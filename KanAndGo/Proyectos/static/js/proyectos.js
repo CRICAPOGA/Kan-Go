@@ -20,66 +20,34 @@ document.addEventListener('DOMContentLoaded', function () {
         fechaInput.min = today;
     }
 });
+// Modal de editar proyecto
+function abrirModalEditar(elemento) {
+    const modal = document.getElementById("modalEditar");
 
-// Interceptar el envío del formulario de edición para enviarlo mediante fetch() (AJAX)
-document.addEventListener('submit', function (event) {
-    if (event.target && event.target.id === 'editarProyectoForm') {
-        event.preventDefault(); // Evitar envío tradicional del formulario
+    // Obtener los datos desde el botón o elemento
+    const proyectoId = elemento.getAttribute("data-id");
+    const nombreProyecto = elemento.getAttribute("data-nombre");
+    const descripcion = elemento.getAttribute("data-descripcion");
+    const fechaFinalizacion = elemento.getAttribute("data-fecha-finalizacion");
 
-        const form = event.target;
-        const formData = new FormData(form);
-        const proyectoId = form.dataset.proyectoId;
+    // Llenar los campos del modal
+    document.getElementById("edit_proyecto_id").value = proyectoId;
+    document.getElementById("edit_nombre_proyecto").value = nombreProyecto;
+    document.getElementById("edit_descripcion").value = descripcion;
+    document.getElementById("edit_fecha_finalizacion").value = fechaFinalizacion;
 
-        fetch(`/proyectos/editar/${proyectoId}/`, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-            }
-        })
-            .then(response => {
-                if (response.ok) {
-                    // Cerrar el modal y recargar el dashboard
-                    document.getElementById('modalEditar').style.display = "none";
-                    window.location.reload();
-                } else {
-                    return response.text().then(data => {
-                        // Mostrar errores de validación si los hay
-                        document.getElementById('modalFormContainer').innerHTML = data;
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error al guardar el proyecto:', error);
-            });
-    }
-});
+    // Actualizar la acción del formulario
+    const formEditar = document.getElementById("formEditar");
+    formEditar.action = `/proyectos/editar/${proyectoId}/`;
 
-// Modal de editar y cargar contenido
-function abrirModalEditar(proyectoId) {
-    // Realizar solicitud AJAX para obtener el formulario de edición
-    fetch(`/proyectos/editar/${proyectoId}/`, {
-        method: 'GET', // Método GET para obtener el contenido
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest', // Esto indica que es una solicitud AJAX
-        }
-    })
-        .then(response => response.text())  // Procesar la respuesta como texto
-        .then(data => {
-            // Colocar contenido del formulario en el contenedor del modal
-            document.getElementById('contenedorForm').innerHTML = data;
-            // Mostrar modal
-            document.getElementById('modalEditar').style.display = "block";
-        })
-        .catch(error => {
-            console.error('Error al cargar el formulario:', error);
-        });
+    // Mostrar modal
+    modal.style.display = "block";
 }
 
 function cerrarModalEditar() {
-    // Ocultar modal cuando el usuario le de en cerrar
-    document.getElementById('modalEditar').style.display = "none";
+    document.getElementById("modalEditar").style.display = "none";
 }
+
 
 // Modal de eliminación
 function abrirModalEliminar(proyectoId, nombreProyecto) {

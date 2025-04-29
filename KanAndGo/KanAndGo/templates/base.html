@@ -79,6 +79,14 @@
                     </a>
                 </li>
                 {% endif %}
+                {% if user.is_staff %}
+                <li>
+                    <a href="{% url 'reportes:reportes' %}">
+                        <ion-icon name="stats-chart-outline"></ion-icon>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+                {% endif %}
                 {% endif %}
             </ul>
         </nav>
