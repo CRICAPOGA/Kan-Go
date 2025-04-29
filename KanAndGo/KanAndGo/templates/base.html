@@ -71,19 +71,17 @@
                         <span>Calendario</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{% url 'reportes:reportes' %}">
+                        <ion-icon name="stats-chart-outline"></ion-icon>
+                        <span>Reportes</span>
+                    </a>
+                </li>
                 {% if user.is_staff %}
                 <li>
                     <a href="{% url 'lista_usuarios' %}">
                         <ion-icon name="person-circle-sharp"></ion-icon>
                         <span>Usuarios</span>
-                    </a>
-                </li>
-                {% endif %}
-                {% if user.is_staff %}
-                <li>
-                    <a href="{% url 'reportes:reportes' %}">
-                        <ion-icon name="stats-chart-outline"></ion-icon>
-                        <span>Reportes</span>
                     </a>
                 </li>
                 {% endif %}
