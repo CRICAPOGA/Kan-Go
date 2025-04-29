@@ -71,3 +71,60 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const dataElement = document.getElementById('sesionesPorTareaData');
+    const sesionesPorTarea = JSON.parse(dataElement.textContent);
+
+    var canvas = document.getElementById('graficoSesiones');
+    if (canvas) {
+        var ctx = canvas.getContext('2d');
+        // continuar usando ctx
+    } else {
+        console.warn("Canvas no encontrado");
+    }
+
+    if (Array.isArray(sesionesPorTarea) && sesionesPorTarea.length > 0) {
+        const labels = sesionesPorTarea.map(item => item.tarea_id__titulo);
+        const datos = sesionesPorTarea.map(item => item.total_sesiones);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Total de Sesiones',
+                    data: datos,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Número de Sesiones'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tareas',
+                        },
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,  // Aquí rotamos las etiquetas
+                            minRotation: 90,   // Aseguramos que las etiquetas siempre estén rotadas a 90 grados
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        console.log("No hay datos de sesiones para mostrar.");
+    }
+});

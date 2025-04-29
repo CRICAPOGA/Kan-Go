@@ -23,93 +23,151 @@
     </div>
 
     <button type="submit">Filtrar</button>
-<div class="card">
-    <h3>Métricas Generales</h3>
-    <p>Cantidad total de proyectos: <strong>{{ total_proyectos }}</strong></p>
-    <p>Activos: <strong>{{ activos }}</strong></p>
-    <p>Completados: <strong>{{ completados }}</strong></p>
 
-    <p>Porcentaje de avance promedio: <strong>{{ avance_promedio }}%</strong></p>
-
-    {% if proyectos_mas_pendientes %}
-    <p>Proyectos con más tareas pendientes:</p>
-    {% for proyecto in proyectos_mas_pendientes %}
-    <p><strong>- {{ proyecto.nombre }} ({{ proyecto.pendientes }} tareas pendientes)</strong></p>
-    {% endfor %}
-    {% else %}
-    <p>No hay proyectos con tareas pendientes.</p>
+    <hr style="margin: 30px 0;">
+    {% if rango_fecha %}
+    <p>Desde: <strong>{{ rango_fecha.0 }}</strong> hasta <strong>{{ rango_fecha.1 }}</strong></p>
     {% endif %}
 
+    <div class="card">
+        <h3>Resumen General</h3>
+        <p>Cantidad total de proyectos: <strong>{{ total_proyectos }}</strong></p>
+        <p>Activos: <strong>{{ activos }}</strong></p>
+        <p>Completados: <strong>{{ completados }}</strong></p>
+
+        <p>Porcentaje de avance promedio: <strong>{{ avance_promedio }}%</strong></p>
+
+        {% if proyectos_mas_pendientes %}
+        <p>Proyectos con más tareas pendientes:</p>
+        {% for proyecto in proyectos_mas_pendientes %}
+        <p><strong>- {{ proyecto.nombre }} ({{ proyecto.pendientes }} tareas pendientes)</strong></p>
+        {% endfor %}
+        {% else %}
+        <p>No hay proyectos con tareas pendientes.</p>
+        {% endif %}
+
+    </div>
+
+    <div class="card">
+        <h3>🗂️ Listado de Proyectos</h3>
+        <div class="table-container">
+            {% if resumen_proyectos %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre del Proyecto</th>
+                            <th>Estado</th>
+                            <th>% Avance</th>
+                            <th>Total de Tareas</th>
+                            <th>Tareas Pendientes</th>
+                            <th>Tareas En Proceso</th>
+                            <th>Tareas Completadas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for resumen in resumen_proyectos %}
+                        <tr>
+                            <td>
+                            {% if resumen.proyecto_id %}
+                            <a href="{% url 'tareas:kanban' resumen.proyecto_id %}">{{ resumen.nombre }}</a>
+                            {% else %}
+                            {{ resumen.nombre }}
+                            {% endif %}
+                            </td>
+                            <td>
+                                {% if resumen.estado %}
+                                Activo
+                                {% else %}
+                                Finalizado
+                                {% endif %}
+                            </td>
+                            <td>{{ resumen.avance }}%</td>
+                            <td>{{ resumen.total_tareas }}</td>
+                            <td>{{ resumen.pendientes }}</td>
+                            <td>{{ resumen.en_proceso }}</td>
+                            <td>{{ resumen.completadas }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div style="padding: 20px; text-align: center;">
+                    <p>No hay proyectos creados en el rango de fechas seleccionado.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+
+<div class="card">
+    <h3>📊 Resumen General de Sesiones Pomodoro</h3>
+    <p>Total sesiones realizadas: <strong>{{ resumen_general_sesiones.total_sesiones }}</strong></p>
+    <p>Total horas trabajadas: <strong>{{ resumen_general_sesiones.total_horas_trabajadas }} horas</strong></p>
+    <p>Promedio de sesiones por día: <strong>{{ resumen_general_sesiones.promedio_sesiones_por_dia }}</strong></p>
+    <p>Día más productivo: <strong>{{ resumen_general_sesiones.dia_mas_productivo }}</strong> con <strong>{{resumen_general_sesiones.sesiones_en_dia_mas_productivo }}</strong> sesiones</p>
 </div>
 
 <div class="card">
-    <h3>🗂️ Listado de Proyectos</h3>
+    <h3>🗂️ Reporte General de Sesiones de Todos los Proyecto</h3>
     <div class="table-container">
+        {% if tiempo_por_proyecto %}
         <table>
             <thead>
                 <tr>
-                    <th>Nombre del Proyecto</th>
-                    <th>Estado</th>
-                    <th>% Avance</th>
-                    <th>Total de Tareas</th>
-                    <th>Tareas Pendientes</th>
-                    <th>Tareas En Proceso</th>
-                    <th>Tareas Completadas</th>
+                    <th>Proyecto</th>
+                    <th>Sesiones</th>
+                    <th>Tiempo dedicado</th>
                 </tr>
             </thead>
             <tbody>
-                {% for resumen in resumen_proyectos %}
+                {% for item in tiempo_por_proyecto %}
                 <tr>
-                    <td>{{ resumen.nombre }}</td>
-                    <td>
-                        {% if resumen.estado %}
-                        Activo
-                        {% else %}
-                        Finalizado
-                        {% endif %}
-                    </td>
-                    <td>{{ resumen.avance }}%</td>
-                    <td>{{ resumen.total_tareas }}</td>
-                    <td>{{ resumen.pendientes }}</td>
-                    <td>{{ resumen.en_proceso }}</td>
-                    <td>{{ resumen.completadas }}</td>
+                    <td>{{ item.proyecto }}</td>
+                    <td>{{ item.sesiones }}</td>
+                    <td>{{ item.tiempo }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <div style="padding: 20px; text-align: center;">
+            <p>No hay sesiones registradas para ningún proyecto en el rango de fechas seleccionado.</p>
+        </div>
+        {% endif %}
     </div>
 </div>
-</form>
-<hr style="margin: 30px 0;">
 
+<hr style="margin: 30px 0;">
+{% if proyectos %}
 <form method="get">
     <label for="proyecto_id">Proyecto:</label>
     <select name="proyecto_id" id="selec_proyecto_id">
         {% for proyecto in proyectos %}
-    <option value="{{ proyecto.proyecto_id }}" {% if proyecto_seleccionado and proyecto.proyecto_id == proyecto_seleccionado.proyecto_id %}selected{% endif %}>
-        {{ proyecto.nombre_proyecto }}
-    </option>
-    {% endfor %}
+        <option value="{{ proyecto.proyecto_id }}" {% if proyecto_seleccionado and proyecto.proyecto_id == proyecto_seleccionado.proyecto_id %}selected{% endif %}>
+            {{ proyecto.nombre_proyecto }}
+        </option>        
+        {% endfor %}
     </select>
 
     <button type="submit">Filtrar</button>
 </form>
-
-{% if rango_fecha %}
-<p>Filtrando desde: <strong>{{ rango_fecha.0 }}</strong> hasta <strong>{{ rango_fecha.1 }}</strong></p>
+{% else %}
+<div style="padding: 20px; text-align: center;">
+    <p>No hay proyectos disponibles para el rango de fechas seleccionado.</p>
+</div>
 {% endif %}
-<hr style="margin: 20px 0;">
 
+<hr style="margin: 20px 0;">
 
 <div class="card">
     {% if proyecto_seleccionado %}
-    <h3>Resumen General Proyecto {{ proyecto_seleccionado.nombre_proyecto }}</h3>
+    <h3>Resumen de Tareas</h3>
     {% endif %}
     {% if total_tareas %}
     <p>Total de tareas: <strong>{{ total_tareas }}</strong></p>
-    <p>Tareas completadas: <strong>{{ tareas_completadas }}</strong></p>
-    <p>Tareas en progreso: <strong>{{ tareas_en_progreso }}</strong></p>
     <p>Tareas pendientes: <strong>{{ tareas_pendientes }}</strong></p>
+    <p>Tareas en progreso: <strong>{{ tareas_en_progreso }}</strong></p>
+    <p>Tareas completadas: <strong>{{ tareas_completadas }}</strong></p>
     <p>Tareas vencidas: <strong>{{ tareas_vencidas }}</strong></p>
     <p>Avance general:</p>
     <!-- Barra de progreso -->
@@ -123,16 +181,33 @@
     data-pendientes="{{ tareas_pendientes }}" data-vencidas="{{ tareas_vencidas }}">
 </div>
 <div class="card">
-    <h3>Distribución de Tareas</h3>
+    <h3>📊 Distribución de Tareas</h3>
     <div class="grafico-container">
         <canvas id="graficoTareas"></canvas>
     </div>
 </div>
 
+<div class="card">
+    <h3>Resumen de Sesiones Pomodoro</h3>
+    <p>Total sesiones realizadas: <strong>{{ total_sesiones }}</strong></p>
+</div>
+
+<div class="card">
+    <h3>📊 Sesiones Pomodoro Registradas por Tarea</h3>
+    <div id="sesionesPorTareaData" style="display:none;">{{ sesiones_por_tarea_json|safe }}</div>
+    <canvas id="graficoSesiones"></canvas>
+
+</div>
+
 {% endif %}
+
+<script id="sesionesPorTareaData" type="application/json">
+    {{ sesiones_por_tarea|safe }}
+</script>
 
 <!-- JS personalizado -->
 <script src="{% static 'js/reportes.js' %}"></script>
+
 <!-- CDN de Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
