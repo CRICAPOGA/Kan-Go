@@ -15,3 +15,4 @@ class DetalleEtiquetaForm(forms.ModelForm):
     class Meta:
         model = DetalleEtiqueta
         fields = ['etiqueta_id', 'tarea_id']
+        

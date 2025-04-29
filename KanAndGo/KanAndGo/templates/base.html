@@ -25,7 +25,9 @@
                 </div>
             </div>
             <div class="brand">
-                <ion-icon class="logo" name="copy-outline"></ion-icon>
+                <a href="{% url 'home' %}" class="selected">
+                    <ion-icon class="logo" name="copy-outline"></ion-icon>
+                </a>
                 <span class="name">Kan&Go</span>
             </div>
         </div>
@@ -87,18 +89,6 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script>
-        const menu = document.getElementById('menu');
-        const sidebar = document.getElementById('sidebar');
-        const main = document.getElementById('main');
 
-        // Sidebar inicia visible
-        let visible = true;
-
-        menu.addEventListener('click', () => {
-            visible = !visible;
-            sidebar.classList.toggle('hidden', !visible);
-            main.classList.toggle('hidden', !visible);
-        });
-    </script>
+    <script src="{% static 'js/menu.js' %}"></script>
 </body>

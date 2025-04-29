@@ -1,3 +1,11 @@
+body {
+    font-family: "Montserrat", sans-serif;
+    background: #f7f9fc;
+    margin: 0;
+    padding: 0 15px;
+    text-align: center; /* Centra todo el contenido */
+}
+
 h1 {
     text-align: start;
     margin: 10px 0 20px;
@@ -78,33 +86,32 @@ h2 {
 
 .button-container {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    gap: 20px; /* Espacio entre los botones */
-    margin: 20px 0;
+    justify-content: center; /* Centrar botones */
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
 }
 
 /* Botón Agregar Tarea */
 .add-task-button {
-    background-color: #4CAF50;
+    background-color: rgb(123, 160, 190);
     color: white;
     border: none;
     padding: 10px 20px;
-    margin: 20px auto;
-    display: block;
     font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
 }
 
 .add-task-button:hover {
-    background-color: #45a049;
+    background-color: rgb(123, 160, 190);
 }
 
 /* Estilos del fondo del Modal */
 .modal {
     display: none;
-    /* Por defecto, el modal está oculto */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -113,7 +120,6 @@ h2 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
-    /* fondo oscurecido */
     padding-top: 60px;
     transition: background-color 0.3s ease-in-out;
 }
@@ -183,7 +189,7 @@ h2 {
 
 /* Botón dentro del modal */
 .modal-content button {
-    background-color: #4CAF50;
+    background-color: rgb(123, 160, 190);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -199,6 +205,46 @@ h2 {
 }
 
 .modal-content button:hover {
-    background-color: #45a049;
+    background-color: rgb(123, 160, 190);
 }
 
+@media (max-width: 992px) {
+    .column {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .column {
+        width: 90%;
+        display: block;
+        margin: 15px auto;
+    }
+    
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    h2 {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    h2 {
+        font-size: 1em;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}
