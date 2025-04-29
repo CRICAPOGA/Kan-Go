@@ -7,6 +7,18 @@ let temporizadorPrincipalCorriendo = false;
 let cicloPomodoro = 0; // Rastrea el número de ciclos completados
 let esIntervaloTrabajo = true; // Rastrea si es un intervalo de trabajo o descanso
 
+// Seleccionar el botón y el modal
+const botonAbrirModal = document.getElementById('abrirModal');
+const modalElement = document.getElementById('pomodoroModal');
+
+// Crear una instancia del modal
+const modal = new bootstrap.Modal(modalElement);
+
+// Agregar un evento al botón para abrir el modal
+botonAbrirModal.addEventListener('click', () => {
+    modal.show();
+});
+
 function iniciarTemporizadorPrincipal() {
   if (!temporizadorPrincipalCorriendo) {
     temporizadorPrincipal = setInterval(actualizarTemporizadorPrincipal, 1000);
