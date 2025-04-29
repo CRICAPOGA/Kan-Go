@@ -37,7 +37,7 @@ hr {
 
 /* BOTÓN CREAR USUARIO */
 .card button {
-    background-color: #28a745;
+    background-color: rgb(123, 160, 190);
     color: #fff;
     border: none;
     padding: 0.6rem 1.2rem;
@@ -50,7 +50,7 @@ hr {
 }
 
 .card button:hover {
-    background-color: #28a745;
+    background-color: rgb(123, 160, 190);
 }
 
 /* TABLA DE USUARIOS */
@@ -93,20 +93,20 @@ hr {
 }
 
 .edit-icon {
-    color: #0d6efd;
+    color: rgb(123, 160, 190);
 }
 
 .edit-icon:hover {
-    color: #0a58ca;
+    color: rgb(123, 160, 190);
 }
 
 .delete-icon {
-    color: #dc3545;
+    color: #dd5353;
     margin-left: 0.5rem;
 }
 
 .delete-icon:hover {
-    color: #bb2d3b;
+    color: #dd5353;
 }
 
 /* FLEX WRAP ICONOS */
@@ -177,7 +177,7 @@ h2 {
 
 /* Botones en formularios */
 .modal-content button {
-    background-color: #4CAF50;
+    background-color: rgb(123, 160, 190);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -213,19 +213,19 @@ h2 {
 }
 
 .edit-icon {
-    color: #0d6efd; /* azul Bootstrap */
+    color: rgb(123, 160, 190); 
 }
 
 .edit-icon:hover {
-    color: #0a58ca;
+    color: rgb(123, 160, 190);
 }
 
 .delete-icon {
-    color: #dc3545; /* rojo Bootstrap */
+    color: #dd5353; 
 }
 
 .delete-icon:hover {
-    color: #bb2d3b;
+    color: #dd5353;
 }
 
 

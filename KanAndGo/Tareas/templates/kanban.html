@@ -20,8 +20,11 @@
     <h1>Tablero Kanban: {{ proyecto.nombre_proyecto }}</h1>
 
     <div class="button-container">
-        <!--Botón crear tarea-->
         <button class="add-task-button" onclick="abrirModalCrear()">Nueva tarea</button>
+
+        <form action="{% url 'etiquetas:listar_etiquetas' %}" method="get">
+            <button type="submit" class="add-task-button">Etiquetas</button>
+        </form>
     </div>
 
     <!--Columna "por hacer"-->
@@ -138,8 +141,7 @@
             <p><strong>Fecha de vencimiento:</strong> <span id="detalleFecha"></span></p>
             <p><strong>Urgente:</strong> <span id="detalleUrgente"></span></p>
             <p><strong>Importante:</strong> <span id="detalleImportante"></span></p>
-            <button class="add-task-button" onclick="abrirModalCrearEtiqueta()" style="background-color: #7fa8ff;">+
-                Nueva Etiqueta</button>
+            <button class="add-task-button" onclick="abrirModalCrearEtiqueta()">Nueva Etiqueta</button>
         </div>
     </div>
 
@@ -151,8 +153,6 @@
             <form id="formEliminar" method="POST">
                 {% csrf_token %}
                 <button type="submit">Sí, eliminar</button>
-                <button type="button" style="background-color: #d34343; color: white;"
-                    onclick="cerrarModalEliminar()">Cancelar</button>
             </form>
         </div>
     </div>
@@ -175,8 +175,6 @@
                             name="es_importante">Importante</label>
                 </div>
                 <button type="submit">Guardar cambios</button>
-                <button type="button" style="background-color: #d34343; color: white;"
-                    onclick="cerrarModalEditar()">Cancelar</button>
             </form>
         </div>
     </div>
@@ -194,7 +192,7 @@
                 <label for="id_color">Color:</label>
                 <input type="color" name="color" id="id_color">
 
-                <button type="submit" class="add-task-button" style="background-color: #7fa8ff;">Crear Etiqueta</button>
+                <button type="submit" class="add-task-button">Crear Etiqueta</button>
             </form>
         </div>
     </div>

@@ -7,35 +7,32 @@ function cerrarModalCrearEtiqueta() {
     document.getElementById('modalCrearEtiqueta').style.display = 'none';
 }
 
-function abrirModalEditarEtiqueta(button) {
-    var etiquetaId = button.getAttribute("data-id");
-    var etiquetaNombre = button.getAttribute("data-etiqueta");
-    var etiquetaColor = button.getAttribute("data-color");
+function abrirModalEditarEtiqueta(id, nombre, color) {
+    const modal = document.getElementById('modalEditarEtiqueta');
+    modal.classList.add('show');
 
-    // Asignar los valores a los campos del modal
-    document.getElementById("editEtiquetaId").value = etiquetaId;
-    document.getElementById("editEtiquetaNombre").value = etiquetaNombre;
-    document.getElementById("editEtiquetaColor").value = etiquetaColor;
+    document.getElementById('editEtiquetaId').value = id;
+    document.getElementById('editEtiquetaNombre').value = nombre;
+    document.getElementById('editEtiquetaColor').value = color;
 
-    // Mostrar el modal
-    document.getElementById("modalEditarEtiqueta").style.display = "block";
+    // Cambiar acción del form
+    document.getElementById('formEditarEtiqueta').action = `/etiquetas/editar/${id}/`;
 }
 
 function cerrarModalEditarEtiqueta() {
-    // Cerrar el modal
-    document.getElementById("modalEditarEtiqueta").style.display = "none";
+    const modal = document.getElementById('modalEditarEtiqueta');
+    modal.classList.remove('show');
 }
 
+// Modal de eliminar etiqueta
+function abrirModalEliminarEtiqueta(etiquetaId, nombreEtiqueta) {
+    const form = document.getElementById('formEliminar');
+    form.action = `/etiquetas/eliminar/${etiquetaId}/`; 
+    document.getElementById('nombreEtiquetaEliminar').textContent = `"${nombreEtiqueta}"`;
+    document.getElementById('modalEliminarEtiqueta').style.display = "block";
+}
 
-// // Modal de eliminar etiqueta
-// function abrirModalEliminarEtiqueta(usuarioId, nombreUsuario, apellidoUsuario) {
-//     const form = document.getElementById('formEliminar');
-//     form.action = `/usuarios/eliminar/${usuarioId}/`; 
-//     document.getElementById('nombreUsuarioEliminar').textContent = `"${nombreUsuario} ${apellidoUsuario}"`;
-//     document.getElementById('modalEliminarE').style.display = "block";
-// }
-
-// function cerrarModalEliminarEtiqueta() {
-//     // Ocultar modal cuando el usuario le de en cerrar
-//     document.getElementById('modalEliminarE').style.display = "none";
-// }
+function cerrarModalEliminarEtiqueta() {
+    // Ocultar modal cuando el usuario le de en cerrar
+    document.getElementById('modalEliminarEtiqueta').style.display = "none";
+}

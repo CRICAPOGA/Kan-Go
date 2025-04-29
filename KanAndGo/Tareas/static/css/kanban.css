@@ -78,15 +78,18 @@ h2 {
 
 .button-container {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    gap: 20px; /* Espacio entre los botones */
+    justify-content: flex-start;
+    gap: 15px; /* Espacio entre los botones */
     margin: 20px 0;
-    cursor:pointer;
+}
+
+.add-task-button {
+    cursor: pointer; /* Establecer el cursor a pointer en los botones */
 }
 
 /* Botón Agregar Tarea */
 .add-task-button {
-    background-color: #4CAF50;
+    background-color: rgb(123, 160, 190);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -100,7 +103,7 @@ h2 {
 }
 
 .add-task-button:hover {
-    background-color: #45a049;
+    background-color: rgb(123, 160, 190);
 }
 
 /* Estilos del fondo del Modal */
@@ -185,7 +188,7 @@ h2 {
 
 /* Botón dentro del modal */
 .modal-content button {
-    background-color: #4CAF50;
+    background-color: rgb(123, 160, 190);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -201,6 +204,6 @@ h2 {
 }
 
 .modal-content button:hover {
-    background-color: #45a049;
+    background-color: rgb(123, 160, 190);
 }
 

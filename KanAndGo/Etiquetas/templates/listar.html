@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Etiquetas{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/etiquetas.css' %}">
+<h1>Etiquetas</h1>
+<div class="contenedor-etiquetas">
+    {% for etiqueta in etiquetas %}
+    <div class="card-etiqueta">
+        <span class="nombre-etiqueta" style="background-color: {{ etiqueta.color|default:'#ffffff' }}">
+            {{ etiqueta.etiqueta }}
+        </span>
+        <div class="acciones-etiqueta">
+            <button class="btn-editar" onclick="abrirModalEditarEtiqueta('{{ etiqueta.etiqueta_id }}', '{{ etiqueta.etiqueta }}', '{{ etiqueta.color }}')">
+                ✏️
+            </button>
+            <button class="btn-eliminar" onclick="abrirModalEliminarEtiqueta('{{ etiqueta.etiqueta_id }}', '{{ etiqueta.etiqueta }}')">
+                🗑️
+            </button>
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay etiquetas disponibles.</p>
+    {% endfor %}
+</div>
+
+<!-- Modal Editar Etiqueta -->
+<div id="modalEditarEtiqueta" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalEditarEtiqueta()">&times;</span>
+        <h2>Editar Etiqueta</h2>
+        <form id="formEditarEtiqueta" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="etiqueta_id" id="editEtiquetaId">
+
+            <label>Nombre de la etiqueta:</label>
+            <input type="text" name="etiqueta" id="editEtiquetaNombre" required>
+
+            <label>Color de la etiqueta:</label>
+            <input type="color" name="color" id="editEtiquetaColor">
+
+            <button type="submit">Actualizar</button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Eliminar Etiqueta -->
+<div id="modalEliminarEtiqueta" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalEliminarEtiqueta()">&times;</span>
+        <h2>¿Eliminar etiqueta <span id="nombreEtiquetaEliminar"></span>?</h2>
+        <form id="formEliminar" method="POST">
+            {% csrf_token %}
+            <button type="submit">Sí, eliminar</button>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'js/etiquetas.js' %}"></script>
+
+{% endblock %}

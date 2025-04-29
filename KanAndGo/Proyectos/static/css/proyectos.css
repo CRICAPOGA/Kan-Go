@@ -23,7 +23,7 @@ h2 {
 button {
     display: block;
     margin: 20px 0 0 10%;
-    background-color: #369e4e;
+    background-color: rgb(123, 160, 190);
     color: #fff;
     padding: 12px 25px;
     font-size: 1rem;
@@ -35,7 +35,7 @@ button {
 }
 
 button:hover {
-    background-color: #369e4e;
+    background-color: rgb(123, 160, 190);
     transform: scale(1.05);
 }
 
@@ -157,13 +157,13 @@ hr {
 }
 
 .modal-content form button {
-    background-color: #369e4e;
+    background-color: rgb(123, 160, 190);
     color: #fff;
     border: none;
 }
 
 .modal-content form button:hover {
-    background-color: #369e4e;
+    background-color: rgb(123, 160, 190);
 }
 
 .modal-buttons {
@@ -193,17 +193,17 @@ hr {
 }
 
 .modal-buttons .btn-guardar {
-    background-color: #369e4e;
+    background-color: rgb(123, 160, 190);
     color: white;
     border: none;
 }
 
 .modal-buttons .btn-guardar:hover {
-    background-color: #369e4e;
+    background-color: rgb(123, 160, 190);
 }
 
 .modal-buttons .btn-cancelar {
-    background-color: #d34343;
+    background-color: #dd5353;
     color: white;
     border: none;
 }
