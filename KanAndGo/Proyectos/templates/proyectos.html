@@ -71,9 +71,19 @@
     <div id="modalEditar" class="modal">
         <div class="modal-content" >
             <span class="close" onclick="cerrarModalEditar()">&times;</span>
-            <div id="contenedorForm">
-                <!-- Aquí va el contenido del formulario cargado con AJAX -->
-            </div>
+            <h2>Editar proyecto</h2>
+        <form id="formEditar" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="edit_proyecto_id" name="proyecto_id">
+            
+            <label>Nombre del Proyecto: <input type="text" id="edit_nombre_proyecto" name="nombre_proyecto"></label>
+
+            <label>Descripción:<textarea id="edit_descripcion" name="descripcion"></textarea></label>
+
+            <label>Fecha de Finalización:<input type="date" id="edit_fecha_finalizacion" name="fecha_finalizacion"></label>
+
+            <button type="submit">Guardar cambios</button>
+        </form>
         </div>
     </div>
     <!-- Modal de Confirmar Eliminación -->
