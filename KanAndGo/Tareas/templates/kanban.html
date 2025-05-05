@@ -18,12 +18,12 @@
 
 <body data-url-actualizar="{% url 'tareas:actualizar_estado_tarea' %}">
     <h1>Tablero Kanban: {{ proyecto.nombre_proyecto }}</h1>
-
+    <hr>
     <div class="button-container">
         <button class="add-task-button" onclick="abrirModalCrear()">Nueva tarea</button>
 
         <form action="{% url 'etiquetas:listar_etiquetas' %}" method="get">
-            <button type="submit" class="add-task-button">Etiquetas</button>
+            <button type="submit" class="label-button">Etiquetas</button>
         </form>
     </div>
 
@@ -38,16 +38,18 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
-            <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
-                data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
-                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
-                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-                ✏️
-            </span>
-            <span class="delete-icon"
-                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
-            <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
+            <div class="task-icons">
+                <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
+                    data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+                    data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                    data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                    data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+                    ✏️
+                </span>
+                <span class="delete-icon"
+                    onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+                <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -63,16 +65,18 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
-            <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
-                data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
-                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
-                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-                ✏️
-            </span>
-            <span class="delete-icon"
-                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
-            <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
+            <div class="task-icons">
+                <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
+                    data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+                    data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                    data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                    data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+                    ✏️
+                </span>
+                <span class="delete-icon"
+                    onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+                <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -88,16 +92,18 @@
             <div class="task-content" onclick="mostrarDetalleTarea(this)">
                 {{ tarea.titulo }}
             </div>
-            <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
-                data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
-                data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
-                data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
-                data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
-                ✏️
-            </span>
-            <span class="delete-icon"
-                onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
-            <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
+            <div class="task-icons">
+                <span class="edit-icon" onclick="abrirModalEditar(this)" data-id="{{ tarea.tarea_id }}"
+                    data-titulo="{{ tarea.titulo }}" data-descripcion="{{ tarea.descripcion }}"
+                    data-fecha="{{ tarea.fecha_vencimiento|date:'Y-m-d' }}"
+                    data-urgente="{{ tarea.es_urgente|yesno:'true,false' }}"
+                    data-importante="{{ tarea.es_importante|yesno:'true,false' }}">
+                    ✏️
+                </span>
+                <span class="delete-icon"
+                    onclick="abrirModalEliminar('{{ tarea.tarea_id }}', '{{ tarea.titulo }}')">🗑️</span>
+                <span class="pomodoro-button" onclick="abrirPomodoro('{{ tarea.titulo }}')">⏰</span>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -121,13 +127,13 @@
                 <input type="date" name="fecha_vencimiento" id="id_fecha_vencimiento" required>
 
                 <div class="checkbox-group">
-                    <label for="id_es_urgente"><input type="checkbox" name="es_urgente" id="id_es_urgente">¿Es
+                    <label for="id_es_urgente"><input type="checkbox" name="es_urgente" id="id_es_urgente"> ¿Es
                         urgente?</label>
-                    <label for="id_es_importante"><input type="checkbox" name="es_importante" id="id_es_importante">¿Es
+                    <label for="id_es_importante"><input type="checkbox" name="es_importante" id="id_es_importante"> ¿Es
                         importante?</label>
                 </div>
 
-                <button class="add-task-button" type="submit">Crear</button>
+                <button type="submit">Crear</button>
             </form>
         </div>
     </div>
@@ -137,10 +143,12 @@
         <div class="modal-content">
             <span class="close" onclick="cerrarDetalleModal()">&times;</span>
             <h2 id="detalleTitulo"></h2>
-            <p><strong>Descripción:</strong> <span id="detalleDescripcion"></span></p>
-            <p><strong>Fecha de vencimiento:</strong> <span id="detalleFecha"></span></p>
-            <p><strong>Urgente:</strong> <span id="detalleUrgente"></span></p>
-            <p><strong>Importante:</strong> <span id="detalleImportante"></span></p>
+            <hr>
+            <p class="detalle-campo"><strong>Descripción:</strong> <span id="detalleDescripcion"></span></p>
+            <p class="detalle-campo"><strong>Fecha de vencimiento:</strong> <span id="detalleFecha"></span></p>
+            <p class="detalle-campo"><strong>Urgente:</strong> <span id="detalleUrgente"></span></p>
+            <p class="detalle-campo"><strong>Importante:</strong> <span id="detalleImportante"></span></p>
+            <hr>
             <button class="add-task-button" onclick="abrirModalCrearEtiqueta()">Nueva Etiqueta</button>
         </div>
     </div>
@@ -192,7 +200,7 @@
                 <label for="id_color">Color:</label>
                 <input type="color" name="color" id="id_color">
 
-                <button type="submit" class="add-task-button">Crear Etiqueta</button>
+                <button type="submit">Crear Etiqueta</button>
             </form>
         </div>
     </div>
