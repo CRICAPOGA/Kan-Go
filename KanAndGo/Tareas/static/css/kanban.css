@@ -208,11 +208,14 @@ hr {
     background-color: rgb(123, 160, 190);
     color: #fff;
     border: none;
+    transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor:pointer;
 }
 
 .modal-content form button:hover {
     background-color: rgb(75, 110, 139);
-    cursor: pointer;
+    transform: scale(1.05);
 }
 
 .detalle-campo {
