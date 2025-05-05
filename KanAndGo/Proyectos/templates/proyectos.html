@@ -90,8 +90,7 @@
     <div id="modalEliminar" class="modal">
         <div class="modal-content">
             <span class="close" onclick="cerrarModalEliminar()">&times;</span>
-            <h2>¿Estás seguro de que deseas eliminar el proyecto?</h2>
-            <p id="nombreProyectoEliminar"></p>
+            <h2>¿Estás seguro de que deseas eliminar el proyecto <span id="nombreProyectoEliminar"></span>?</h2>
             <form id="formEliminar" method="POST">
                 {% csrf_token %}
                 <button type="submit" class="btn-guardar">Sí, eliminar</button>
