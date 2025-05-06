@@ -5,18 +5,19 @@
 {% load static %}
 
 {% block content %}
+<!-- Link del css -->
 <link rel="stylesheet" href="{% static 'css/proyectos.css' %}">
 
 <h1>Mis Proyectos</h1>
 
-<!--Botón crear proyecto-->
+<!-- Botón crear proyecto -->
 <button onclick="abrirModalCrear()">Crear un nuevo proyecto</button>
-
 <hr>
-<!--Proyectos-->
+<!-- Proyectos -->
 <div class="project-list">
     {% for proyecto in proyectos %}
     <div class="project-card">
+        <!-- Información del proyecto -->
         <h3>{{ proyecto.nombre_proyecto }}</h3>
         <p>{{ proyecto.descripcion|truncatewords:10 }}</p>
         <p>
@@ -27,20 +28,17 @@
         </p>
         <p>Creado: {{ proyecto.fecha_creacion|date:"j \d\e F \d\e Y \a \l\a\s H:i" }}</p>
         <p>Finaliza: {{ proyecto.fecha_finalizacion|date:"j \d\e F \d\e Y" }}</p>
-        <!--Enlaces-->
-        <a href="javascript:void(0);" onclick="abrirModalEditar(this)"
-        data-id="{{ proyecto.proyecto_id }}"
-        data-nombre="{{ proyecto.nombre_proyecto }}"
-        data-descripcion="{{ proyecto.descripcion }}"
-        data-fecha-finalizacion="{{ proyecto.fecha_finalizacion|date:'Y-m-d' }}"
-        data-estado="{{ proyecto.estado|yesno:'true,false' }}">
+        <!-- Enlaces -->
+        <a href="javascript:void(0);" onclick="abrirModalEditar(this)" data-id="{{ proyecto.proyecto_id }}"
+            data-nombre="{{ proyecto.nombre_proyecto }}" data-descripcion="{{ proyecto.descripcion }}"
+            data-fecha-finalizacion="{{ proyecto.fecha_finalizacion|date:'Y-m-d' }}"
+            data-estado="{{ proyecto.estado|yesno:'true,false' }}">
             ✏️ Editar
         </a>
         <a href="javascript:void(0);"
             onclick="abrirModalEliminar('{{ proyecto.proyecto_id }}', '{{ proyecto.nombre_proyecto }}')">🗑️
             Eliminar</a>
         <a href="{% url 'tareas:kanban' proyecto.proyecto_id %}">🗂️ Ir al tablero Kanban</a>
-
     </div>
     {% empty %}
     <p>No tienes proyectos aún.</p>
@@ -63,42 +61,10 @@
             <label for="id_fecha_finalizacion">Fecha de finalización:</label>
             <input type="date" name="fecha_finalizacion" id="id_fecha_finalizacion" required>
 
-                <button type="submit">Crear</button>
-            </form>
-        </div>
-    </div>
-    <!-- Modal de Editar -->
-    <div id="modalEditar" class="modal">
-        <div class="modal-content" >
-            <span class="close" onclick="cerrarModalEditar()">&times;</span>
-            <h2>Editar proyecto</h2>
-        <form id="formEditar" method="post">
-            {% csrf_token %}
-            <input type="hidden" id="edit_proyecto_id" name="proyecto_id">
-            
-            <label>Nombre del Proyecto: <input type="text" id="edit_nombre_proyecto" name="nombre_proyecto"></label>
-
-            <label>Descripción:<textarea id="edit_descripcion" name="descripcion"></textarea></label>
-
-            <label>Fecha de Finalización:<input type="date" id="edit_fecha_finalizacion" name="fecha_finalizacion"></label>
-
-            <button type="submit">Guardar cambios</button>
+            <button type="submit">Crear</button>
         </form>
-        </div>
-    </div>
-    <!-- Modal de Confirmar Eliminación -->
-    <div id="modalEliminar" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModalEliminar()">&times;</span>
-            <h2>¿Estás seguro de que deseas eliminar el proyecto <span id="nombreProyectoEliminar"></span>?</h2>
-            <form id="formEliminar" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn-guardar">Sí, eliminar</button>
-            </form>            
-        </div>
     </div>
 </div>
-
 <!-- Modal de Editar -->
 <div id="modalEditar" class="modal">
     <div class="modal-content">
@@ -107,16 +73,15 @@
         <form id="formEditar" method="post">
             {% csrf_token %}
             <input type="hidden" id="edit_proyecto_id" name="proyecto_id">
-            
+
             <label>Nombre del Proyecto: <input type="text" id="edit_nombre_proyecto" name="nombre_proyecto"></label>
 
             <label>Descripción:<textarea id="edit_descripcion" name="descripcion"></textarea></label>
 
-            <label>Fecha de Finalización:<input type="date" id="edit_fecha_finalizacion" name="fecha_finalizacion"></label>
+            <label>Fecha de Finalización:<input type="date" id="edit_fecha_finalizacion"
+                    name="fecha_finalizacion"></label>
 
             <button type="submit">Guardar cambios</button>
-            <button type="button" style="background-color: #d34343; color: white;"
-                onclick="cerrarModalEditar()">Cancelar</button>
         </form>
     </div>
 </div>
@@ -128,15 +93,10 @@
         <form id="formEliminar" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn-guardar">Sí, eliminar</button>
-            <button type="button" style="background-color: #d34343; color: white;" class="btn-cancelar"
-                onclick="cerrarModalEliminar()">Cancelar</button>
         </form>
     </div>
 </div>
 
-<!--Link del js-->
+<!-- Link del js -->
 <script src="{% static 'js/proyectos.js' %}"></script>
-</body>
-
-</html>
 {% endblock %}

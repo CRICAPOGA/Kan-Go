@@ -104,8 +104,10 @@ hr {
 }
 
 .project-card a:hover {
-    text-decoration: underline;
-    color: #0056b3;
+    text-decoration: none;
+    color: #014894;
+    transform: scale(1.0);
+    font-weight: 600;
 }
 
 /* Modal */
