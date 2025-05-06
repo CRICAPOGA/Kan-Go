@@ -5,6 +5,7 @@
 {% load static %}
 
 {% block content %}
+<!--Link del css-->
 <link rel="stylesheet" href="{% static 'css/usuarios.css' %}">
 
 {% if messages %}
@@ -16,12 +17,11 @@
     {% endfor %}
 </div>
 {% endif %}
-
-<div class="container-fluid d-flex justify-content-center align-items-center min-vh-120 px-3">
-    <div class="card shadow-lg bg-white rounded-4 p-4 m-4 col-lg-9 col-md-10 col-sm-12">
-        <h2>Gestión de Usuarios</h2>
-        <hr class="border-1 opacity-75 mt-1">
-
+<!-- Tarjeta -->
+<div class="container-fluid">
+    <div class="card">
+        <h1>Gestión de Usuarios</h2>
+        <hr>
         <!-- Botón para agregar usuario -->
         <button onclick="abrirModalCrear()">Crear nuevo usuario</button>
 
@@ -30,54 +30,54 @@
 
         <!-- Tabla de Usuarios -->
         <div class="table-responsive">
-            <table class="table table-bordered table-hover rounded-3 overflow-hidden">
-                <thead class="text-white">
+            <table class="table">
+                <thead>
                     <tr>
-                        <th class="text-center">ID</th>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center">Apellido</th>
-                        <th class="text-center">Nombre de Usuario</th>
-                        <th class="text-center">Correo</th>
-                        <th class="text-center">Rol</th>
-                        <th class="text-center">Acciones Usuario</th>
-                        <th class="text-center">Acciones Rol</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Acciones Usuario</th>
+                        <th>Acciones Rol</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for usuario in usuarios %}
                     <tr>
-                        <td class="align-middle text-center">{{ usuario.usuario_id }}</td>
-                        <td class="align-middle">{{ usuario.nombre }}</td>
-                        <td class="align-middle">{{ usuario.apellido }}</td>
-                        <td class="align-middle">{{ usuario.username }}</td>
-                        <td class="align-middle">{{ usuario.correo }}</td>
-                        <td class="align-middle">{{ usuario.rol_id.rol }}</td>
-                        <td class="text-center align-middle">
-                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <td>{{ usuario.usuario_id }}</td>
+                        <td>{{ usuario.nombre }}</td>
+                        <td>{{ usuario.apellido }}</td>
+                        <td>{{ usuario.username }}</td>
+                        <td>{{ usuario.correo }}</td>
+                        <td>{{ usuario.rol_id.rol }}</td>
+                        <td>
+                            <div class="icon-container">
+                                <!-- Botón editar usuario -->
                                 <span class="edit-icon" onclick="abrirModalEditar(this)"
                                     data-id="{{ usuario.usuario_id }}" data-nombre="{{ usuario.nombre }}"
                                     data-apellido="{{ usuario.apellido }}" data-nombre_usuario="{{ usuario.username }}"
                                     data-correo="{{ usuario.correo }}" data-rol_id="{{ usuario.rol_id.rol_id }}">
                                     ✏️
                                 </span>
-                                <a href="javascript:void(0);"
+                                <!-- Botón eliminar usuario -->
+                                <span class="delete-icon"
                                     onclick="abrirModalEliminar('{{ usuario.usuario_id }}', '{{ usuario.nombre }}', '{{ usuario.apellido }}')">🗑️
-                                </a>
+                                </span>
                             </div>
                         </td>
-                        <td class="text-center align-middle">
-                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <td>
+                            <div class="icon-container">
                                 <!-- Botón editar rol -->
                                 <span class="edit-icon" onclick="abrirModalEditarR(this)"
                                     data-rol_id="{{ usuario.rol_id.rol_id }}" data-rol="{{ usuario.rol_id.rol }}">
                                     ✏️
                                 </span>
-
                                 <!-- Botón eliminar rol -->
-                                <a href="javascript:void(0);"
-                                    onclick="abrirModalEliminarR('{{ usuario.rol_id.rol_id }}', '{{ usuario.rol_id.rol|escapejs }}')">
-                                    🗑️
-                                </a>
+                                <span class="delete-icon"
+                                    onclick="abrirModalEliminarR('{{ usuario.rol_id.rol_id }}', '{{ usuario.rol_id.rol|escapejs }}')">🗑️
+                                </span>
                             </div>
                         </td>
                     </tr>
@@ -85,15 +85,14 @@
                 </tbody>
             </table>
         </div>
-
+        
         <!-- Modal de Crear Usuario -->
         <div id="modalCrear" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="cerrarModalCrear()">&times;</span>
-                <h2>Crear nuevo Usuario</h2>
+                <h2>Crear nuevo usuario</h2>
                 <form id="formCrear" method="POST" action="{% url 'crear_usuario' %}">
                     {% csrf_token %}
-
                     <label for="id_nombre">Nombre:</label>
                     <input type="text" name="nombre" id="id_nombre" required>
 
@@ -112,11 +111,11 @@
                         <option value="{{ rol.rol_id }}">{{ rol.rol }}</option>
                         {% endfor %}
                     </select>
+
                     <button type="submit">Crear Usuario</button>
                 </form>
             </div>
         </div>
-
         <!-- Modal de Editar -->
         <div id="modalEditar" class="modal">
             <div class="modal-content">
@@ -135,11 +134,11 @@
                         <option value="{{ rol.rol_id }}">{{ rol.rol }}</option>
                         {% endfor %}
                     </select>
+
                     <button type="submit">Guardar cambios</button>
                 </form>
             </div>
         </div>
-
         <!-- Modal de Confirmar Eliminación -->
         <div id="modalEliminar" class="modal">
             <div class="modal-content">
@@ -160,11 +159,11 @@
                 <form id="formCrear" method="POST" action="{% url 'crear_rol' %}">
                     {% csrf_token %}
                     <input type="text" name="rol" placeholder="Nombre del rol" required>
+
                     <button type="submit" class="btn verde">Crear Rol</button>
                 </form>
             </div>
         </div>
-
         <!-- Modal Editar Rol -->
         <div id="modalEditarR" class="modal">
             <div class="modal-content">
@@ -178,7 +177,6 @@
                         <option value="{{ rol.rol_id }}" data-nombre="{{ rol.rol }}">{{ rol.rol }}</option>
                         {% endfor %}
                     </select>
-
                     <label>Nuevo nombre del rol:</label>
                     <input type="text" name="rol" id="editRolNombre" required>
 
@@ -186,13 +184,11 @@
                 </form>
             </div>
         </div>
-
         <!-- Modal de Confirmar Eliminación de Rol -->
         <div id="modalEliminarR" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="cerrarModalEliminarR()">&times;</span>
                 <h2>¿Estás seguro de que deseas eliminar el siguiente rol?</h2>
-
                 <form id="formEliminarRol" method="POST">
                     {% csrf_token %}
 
@@ -202,18 +198,15 @@
                         <option value="{{ rol.rol_id }}" data-nombre="{{ rol.rol }}">{{ rol.rol }}</option>
                         {% endfor %}
                     </select>
-
                     <!-- Campo oculto para el ID -->
                     <input type="hidden" id="hiddenRolId" name="rol_id_hidden">
 
                     <p>Rol seleccionado: <strong id="nombreRolEliminar"></strong></p>
 
                     <button type="submit">Sí, eliminar</button>
-
                 </form>
             </div>
         </div>
-
     </div>
 </div>
 <!--Link del js-->
