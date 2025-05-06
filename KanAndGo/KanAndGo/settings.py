@@ -154,3 +154,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email settings for sending emails using Mailtrap
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+DEFAULT_FROM_EMAIL = 'noreply@KanAndGo.com'
+EMAIL_HOST_USER = 'abff679d82757c'
+EMAIL_HOST_PASSWORD = '4e8ee4a8102f23'
+EMAIL_PORT = '2525'

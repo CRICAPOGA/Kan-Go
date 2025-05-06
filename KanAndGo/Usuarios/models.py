@@ -16,6 +16,7 @@ class Usuario(AbstractUser):
     correo = models.EmailField(unique=True, verbose_name="Correo")
     rol_id = models.ForeignKey(Rol, on_delete=models.CASCADE, verbose_name='Rol', null=True, blank=True)
 
+    EMAIL_FIELD = 'correo'
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['correo', 'nombre', 'apellido']
 

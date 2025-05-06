@@ -55,3 +55,19 @@ def register_auth(request):
 
 def acceso(request):
     return render(request, 'acceso.html')
+
+from django.core.mail import send_mail
+from django.http import HttpResponse
+
+def prueba_correo(request):
+    try:
+        send_mail(
+            subject='Prueba de correo',
+            message='Este es un correo de prueba enviado desde Django.',
+            from_email='abff679d82757c@mailtrap.io',  # Usa el correo configurado en Mailtrap
+            recipient_list=['camilochoposada2@example.com'],  # Cambia esto por un correo válido
+            fail_silently=False,
+        )
+        return HttpResponse("Correo enviado exitosamente.")
+    except Exception as e:
+        return HttpResponse(f"Error al enviar el correo: {e}")
