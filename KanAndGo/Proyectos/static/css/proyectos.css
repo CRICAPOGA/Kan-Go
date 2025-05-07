@@ -6,17 +6,14 @@ body {
     padding: 0 15px;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     margin: 40px 0 20px;
-    font-size: 2.5em;
     color: rgb(58, 99, 133);
 }
 
-h2 {
-    text-align: center;
-    margin: 40px 0 20px;
-    color: rgb(58, 99, 133);
+h1 {
+    font-size: 2.5em;
 }
 
 /* Botón crear proyecto */
@@ -28,14 +25,14 @@ button {
     padding: 12px 25px;
     font-size: 1rem;
     border: none;
-    border-radius: 30px;
+    border-radius: 1.8rem;
     transition: 0.3s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     cursor:pointer;
 }
 
 button:hover {
-    background-color: rgb(123, 160, 190);
+    background-color: rgb(75, 110, 139);
     transform: scale(1.05);
 }
 
@@ -66,10 +63,12 @@ hr {
     position: relative;
 }
 
+/* Efecto “levantar” al pasar el cursor */
 .project-card:hover {
     transform: translateY(-5px);
 }
 
+/* Texto en la tarjeta */
 .project-card h3 {
     font-size: 1.4em;
     color: steelblue;
@@ -84,7 +83,7 @@ hr {
 
 /* Estados */
 .estado-activo {
-    color: #28a745;
+    color: #28a770;
     font-weight: bold;
 }
 
@@ -93,7 +92,7 @@ hr {
     font-weight: bold;
 }
 
-/* Links */
+/* Enlaces en tarjetas */
 .project-card a {
     display: inline-block;
     margin-top: 8px;
@@ -105,8 +104,10 @@ hr {
 }
 
 .project-card a:hover {
-    text-decoration: underline;
-    color: #0056b3;
+    text-decoration: none;
+    color: #014894;
+    transform: scale(1.0);
+    font-weight: 600;
 }
 
 /* Modal */
@@ -133,18 +134,19 @@ hr {
     box-shadow: 0 8px 16px #555;
 }
 
+/* Botón en forma de "×" */
 .close {
     float: right;
-    font-size: 26px;
+    font-size: 30px;
     font-weight: bold;
 }
 
 .close:hover {
-    color: #555;
+    color: #888;
     cursor: pointer;
 }
 
-/* Formulario del modal */
+/* Formulario dentro del modal */
 .modal-content form input,
 .modal-content form textarea,
 .modal-content form button {
@@ -156,6 +158,7 @@ hr {
     font-size: 1rem;
 }
 
+/* Botón dentro del formulario */
 .modal-content form button {
     background-color: rgb(123, 160, 190);
     color: #fff;
@@ -163,51 +166,5 @@ hr {
 }
 
 .modal-content form button:hover {
-    background-color: rgb(123, 160, 190);
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 15px;
-    padding: 10px;
-}
-
-.modal-buttons .btn-guardar,
-.modal-buttons .btn-cancelar {
-    flex: 1;
-    padding: 10px;
-    font-size: 0.95rem;
-    border-radius: 6px;
-    text-align: center;
-    text-decoration: none;
-    transition: 0.3s ease;
-    display: inline-block;
-    line-height: 1.5;
-    height: auto;
-    box-sizing: border-box;
-    display: block;
-    margin: 20px auto 0 auto;
-    cursor:pointer;
-}
-
-.modal-buttons .btn-guardar {
-    background-color: rgb(123, 160, 190);
-    color: white;
-    border: none;
-}
-
-.modal-buttons .btn-guardar:hover {
-    background-color: rgb(123, 160, 190);
-}
-
-.modal-buttons .btn-cancelar {
-    background-color: #dd5353;
-    color: white;
-    border: none;
-}
-
-.modal-buttons .btn-cancelar:hover {
-    background-color: #d6d6d6;
+    background-color: rgb(75, 110, 139);
 }
