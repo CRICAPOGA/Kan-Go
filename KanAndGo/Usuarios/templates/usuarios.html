@@ -40,7 +40,7 @@
                         <th class="text-center">Correo</th>
                         <th class="text-center">Rol</th>
                         <th class="text-center">Acciones Usuario</th>
-                        <th class="text-center">Acciones Rol</th>
+                        <!-- <th class="text-center">Acciones Rol</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -65,21 +65,21 @@
                                 </a>
                             </div>
                         </td>
-                        <td class="text-center align-middle">
-                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <!-- <td class="text-center align-middle"> -->
+                            <!-- <div class="d-flex flex-wrap justify-content-center gap-2"> -->
                                 <!-- Botón editar rol -->
-                                <span class="edit-icon" onclick="abrirModalEditarR(this)"
-                                    data-rol_id="{{ usuario.rol_id.rol_id }}" data-rol="{{ usuario.rol_id.rol }}">
-                                    ✏️
-                                </span>
+                                <!-- <span class="edit-icon" onclick="abrirModalEditarR(this)" -->
+                                    <!-- data-rol_id="{{ usuario.rol_id.rol_id }}" data-rol="{{ usuario.rol_id.rol }}"> -->
+                                    <!-- ✏️ -->
+                                <!-- </span> -->
 
                                 <!-- Botón eliminar rol -->
-                                <a href="javascript:void(0);"
-                                    onclick="abrirModalEliminarR('{{ usuario.rol_id.rol_id }}', '{{ usuario.rol_id.rol|escapejs }}')">
-                                    🗑️
-                                </a>
-                            </div>
-                        </td>
+                                <!-- <a href="javascript:void(0);" -->
+                                    <!-- onclick="abrirModalEliminarR('{{ usuario.rol_id.rol_id }}', '{{ usuario.rol_id.rol|escapejs }}')"> -->
+                                    <!-- 🗑️ -->
+                                <!-- </a> -->
+                            <!-- </div> -->
+                        <!-- </td> -->
                     </tr>
                     {% endfor %}
                 </tbody>
